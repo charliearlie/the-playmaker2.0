@@ -1,0 +1,65 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import Button from "../components/common/button";
+import FormField from "../components/form/form-field";
+import Card from "../components/common/card/card";
+import CardContent from "../components/common/card/card-content";
+import { register } from "@/lib/user-auth";
+import { cookies } from "next/headers";
+
+export default function RegisterPage() {
+  const registerUser = async (formData: FormData) => {
+    "use server";
+    const username = formData.get("username") || "";
+    const email = formData.get("email") || "";
+    const password = formData.get("password") || "";
+
+    if (
+      typeof username !== "string" ||
+      typeof email !== "string" ||
+      typeof password !== "string"
+    ) {
+      return null;
+    }
+
+    const response = await register({ email, password, username });
+    if (response?.token) {
+      cookies().set({
+        name: "user_session",
+        value: response?.token,
+        httpOnly: true,
+        path: "/",
+      });
+    }
+    redirect("/");
+  };
+  return (
+    <>
+      <Card>
+        <CardContent>
+          <div className="mb-4 w-full sm:px-8 pt-6 pb-10 flex flex-col items-center">
+            <h1 className="pt-4 pb-8 text-center text-3xl font-bold">
+              Join The-Playmaker
+            </h1>
+            <form className="w-auto md:w-80" action={registerUser}>
+              <FormField label="Username" name="username" type="text" />
+              <FormField label="Email" name="email" type="text" />
+              <FormField label="Password" name="password" type="password" />
+              <div className="flex flex-col md:flex-row md:justify-between">
+                <Button className="w-25" variant="primary" type="submit">
+                  Sign up
+                </Button>
+                <Link
+                  className="px-0 py-2 font-semibold text-blue-500 hover:text-slate-500"
+                  href="/login"
+                >
+                  Already registered?
+                </Link>
+              </div>
+            </form>
+          </div>
+        </CardContent>
+      </Card>
+    </>
+  );
+}
