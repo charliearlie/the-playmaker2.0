@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String           @id @default(uuid())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  username          String           @unique
+  email             String           @unique
+  password          String
+  active            Boolean          @default(true)
+  avatarUrl         String?
+  feedbackScore     Int?
+  posts             Post[]
+  topics            Topic[]
+  role              Role             @default(USER)
+  likedPosts        PostLike[]
+  likedTopics       TopicLike[]
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+model ForgotPassword {
+  email      String
+  token      String   @id @default(uuid())
+  expiration DateTime
+}
+
+model Group {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  categories  Category[]
+}
+
+model Category {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String
+  topics      Topic[]
+  group       Group         @relation(fields: [groupId], references: [id])
+  groupId     String
+}
+
+model Topic {
+  id                String           @id @default(uuid())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  title             String
+  user              User             @relation(fields: [userId], references: [id])
+  userId            String
+  votes             Int
+  slug              String           @unique
+  posts             Post[]
+  likes             TopicLike[]
+  category          Category         @relation(fields: [categoryId], references: [id])
+  categoryId        String
+}
+
+model Post {
+  id                String           @id @default(uuid())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  content           String
+  user              User             @relation(fields: [userId], references: [id])
+  userId            String
+  topic             Topic            @relation(fields: [topicId], references: [id])
+  topicId           String
+  likes             PostLike[]
+}
+
+model PostLike {
+  id         String @id @default(uuid())
+  user       User   @relation(fields: [userId], references: [id])
+  userId     String
+  post       Post   @relation(fields: [postId], references: [id])
+  postId     String
+  likeStatus LikeStatus
+}
+
+model TopicLike {
+  id            String     @id @default(uuid())
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String
+  topic         Topic      @relation(fields: [topicId], references: [id])
+  topicId       String
+  likeStatus    LikeStatus
+}
+
+enum LikeStatus {
+  UPVOTE
+  DOWNVOTE
+}
