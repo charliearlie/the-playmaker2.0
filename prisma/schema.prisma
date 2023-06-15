@@ -46,6 +46,7 @@ model Category {
   id          String        @id @default(uuid())
   name        String        @unique
   description String
+  slug        String        @unique
   topics      Topic[]
   group       Group         @relation(fields: [groupId], references: [id])
   groupId     String

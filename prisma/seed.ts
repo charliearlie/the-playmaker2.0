@@ -49,6 +49,7 @@ async function main() {
       name: "Category 1",
       description: "This is category 1",
       groupId: group1.id,
+      slug: generateSlug("Category 1"),
     },
   });
 
@@ -57,6 +58,7 @@ async function main() {
       name: "Category 2",
       description: "This is category 2",
       groupId: group1.id,
+      slug: generateSlug("Category 2"),
     },
   });
 
@@ -65,6 +67,7 @@ async function main() {
       name: "Category 3",
       description: "This is category 3",
       groupId: group2.id,
+      slug: generateSlug("Category 3"),
     },
   });
 
@@ -73,6 +76,7 @@ async function main() {
       name: "Category 4",
       description: "This is category 4",
       groupId: group2.id,
+      slug: generateSlug("Category 4"),
     },
   });
 

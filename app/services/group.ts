@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
 export const getGroupData = async () => {
-  const categories = await prisma.category.findMany();
   const groupsWithCategories = await prisma.group.findMany({
     include: {
       categories: {
@@ -16,29 +15,43 @@ export const getGroupData = async () => {
     },
   });
 
-  const groupsWithCounts = groupsWithCategories.map((group) => ({
+  const enrichedGroupsWithCategories = groupsWithCategories.map((group) => ({
     ...group,
-    categories: group.categories.map((category) => ({
-      ...category,
-      topicCount: category.topics.length,
-      postCount: category.topics.reduce(
-        (total, topic) => total + topic.posts.length,
-        0
-      ),
-    })),
+    categories: group.categories.map(async (category) => {
+      const latestPost = await prisma.post.findFirst({
+        where: {
+          topic: {
+            categoryId: category.id,
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          topic: true,
+          user: true,
+        },
+      });
+
+      return {
+        ...category,
+        latestPost,
+        topicCount: category.topics.length,
+        postCount: category.topics.reduce(
+          (total, topic) => total + topic.posts.length,
+          0
+        ),
+      };
+    }),
   }));
 
-  return groupsWithCounts;
-};
+  // Because we're using async functions in the map function above, we have to resolve the promises
+  const resolvedGroups = await Promise.all(
+    enrichedGroupsWithCategories.map(async (group) => ({
+      ...group,
+      categories: await Promise.all(group.categories),
+    }))
+  );
 
-type GetGroupsOptions = {
-  includeCategories?: boolean;
-};
-
-export const getGroups = async (options?: GetGroupsOptions) => {
-  return await prisma.group.findMany({
-    include: {
-      categories: options?.includeCategories || false,
-    },
-  });
+  return resolvedGroups;
 };

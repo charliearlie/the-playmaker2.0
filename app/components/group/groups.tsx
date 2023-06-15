@@ -1,11 +1,12 @@
-import Card from "../common/card/card";
-import CardContent from "../common/card/card-content";
-import CardHeader from "../common/card/card-header";
-import { getGroupData } from "@/app/services/group";
 import Link from "next/link";
+import LatestPost from "../posts/latest-post";
+
+import { getGroupData } from "@/app/services/group";
+import { Card, CardContent, CardHeader } from "../common/card";
 
 export default async function Groups() {
   const groups = await getGroupData();
+  console.log(JSON.stringify(groups));
   return (
     <div className="w-full">
       {groups.map((group) => (
@@ -18,17 +19,19 @@ export default async function Groups() {
                   <th className="w-8/12 md:w-6/12 text-start p-2">Forum</th>
                   <th className="p-2">Topics</th>
                   <th className="p-2">Posts</th>
-                  <th className="hidden md:block p-2">Latest post</th>
+                  <th className="hidden md:table-cell p-2 md:w-3/12">
+                    Latest post
+                  </th>
                 </tr>
               </thead>
-              <tbody className="p-2">
+              <tbody>
                 {group.categories.map((category) => (
-                  <tr>
-                    <td className="w-8/12 md:w-6/12 p-2 bg-slate-50 rounded-sm">
-                      <div className="">
+                  <tr className="border-solid border-b-2 border-slate-200 last:border-b-0">
+                    <td className="w-8/12 md:w-6/12 p-2 bg-slate-50 rounded-sm align-top">
+                      <div className="flex flex-col justify-start">
                         <Link
-                          className="text-lg underline text-slate-700 font-bold"
-                          href={`/forum/${category.name}`}
+                          className="text-lg underline text-slate-700 font-bold hover:text-slate-400"
+                          href={`/forum/${category.slug}`}
                         >
                           {category.name}
                         </Link>
@@ -39,8 +42,8 @@ export default async function Groups() {
                     <td className="p-2 text-center bg-slate-50">
                       {category.postCount}
                     </td>
-                    <td className="hidden md:table-cell p-2 text-center">
-                      Post by kyro7
+                    <td className="hidden md:table-cell p-2 text-center md:w-3/12">
+                      <LatestPost latestPost={category.latestPost!} />
                     </td>
                   </tr>
                 ))}

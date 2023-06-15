@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+
 import Button from "../components/common/button";
 import FormField from "../components/form/form-field";
-import Card from "../components/common/card/card";
-import CardContent from "../components/common/card/card-content";
+import { Card, CardContent } from "../components/common/card";
 import { register } from "@/lib/user-auth";
-import { cookies } from "next/headers";
 
 export default function RegisterPage() {
   const registerUser = async (formData: FormData) => {

@@ -3,9 +3,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import Button from "../components/common/button";
-import Card from "../components/common/card/card";
-import CardContent from "../components/common/card/card-content";
 import FormField from "../components/form/form-field";
+import { Card, CardContent } from "../components/common/card";
 
 import { login } from "@/lib/user-auth";
 
