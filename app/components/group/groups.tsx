@@ -1,12 +1,11 @@
 import Link from "next/link";
 import LatestPost from "../posts/latest-post";
 
-import { getGroupData } from "@/app/services/group";
+import { getGroupData } from "@/app/services/groups-service";
 import { Card, CardContent, CardHeader } from "../common/card";
 
 export default async function Groups() {
   const groups = await getGroupData();
-  console.log(JSON.stringify(groups));
   return (
     <div className="w-full">
       {groups.map((group) => (

@@ -45,7 +45,6 @@ export const getGroupData = async () => {
     }),
   }));
 
-  // Because we're using async functions in the map function above, we have to resolve the promises
   const resolvedGroups = await Promise.all(
     enrichedGroupsWithCategories.map(async (group) => ({
       ...group,

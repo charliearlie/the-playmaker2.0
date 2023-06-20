@@ -1,9 +1,23 @@
-import { PropsWithChildren } from "react";
+"use client";
+import { PropsWithChildren, useContext } from "react";
+import { CardContext } from "./card";
 
-export default function CardSubHeader({ children }: PropsWithChildren) {
+type Props = {
+  className?: string;
+};
+
+export default function CardSubHeader({
+  children,
+  className = "",
+}: PropsWithChildren<Props>) {
+  const { isCollapsed } = useContext(CardContext);
   return (
-    <h3 className="flex bg-black py-1 px-2 text-center text-lg font-semibold">
+    <div
+      className={`flex bg-slate-400 text-center text-lg font-semibold ${
+        isCollapsed ? "max-h-0 p-0" : "max-h-screen py-1 px-2"
+      } overflow-hidden ${className}`}
+    >
       {children}
-    </h3>
+    </div>
   );
 }
