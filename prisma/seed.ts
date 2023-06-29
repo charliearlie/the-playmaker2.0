@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
+import { getTopicsForSeed } from "./seed-data";
 
 function generateSlug(title: string) {
   return title
@@ -83,41 +84,154 @@ async function main() {
   // Create one topic for each category
   const topic1 = await prisma.topic.create({
     data: {
-      title: "Topic 1",
-      slug: generateSlug("Topic 1"),
+      title:
+        "Arsenal still trying to sign Mr. Pilau, despite him retiring 4 years ago",
+      slug: "arsenal-sign-mr-pilau",
       userId: user1.id,
       categoryId: category1.id,
-      votes: 0,
+      views: 9100,
     },
   });
 
   const topic2 = await prisma.topic.create({
     data: {
-      title: "Topic 2",
-      slug: generateSlug("Topic 2"),
+      title: "PIF buy Gervinho and loan him to Newcastle",
+      slug: "gervinho-loan-newcastle",
       userId: user1.id,
-      categoryId: category2.id,
-      votes: 0,
+      categoryId: category1.id,
+      views: 210,
     },
   });
 
   const topic3 = await prisma.topic.create({
     data: {
-      title: "Topic 3",
-      slug: generateSlug("Topic 3"),
+      title: "Arctic Monkeys tribute act headline Glastonbury",
+      slug: "arctic-monkeys-tribute",
       userId: user2.id,
-      categoryId: category3.id,
-      votes: 0,
+      categoryId: category2.id,
+      views: 5410,
     },
   });
 
   const topic4 = await prisma.topic.create({
     data: {
-      title: "Topic 4",
-      slug: generateSlug("Topic 4"),
+      title: "Arsenal might have hurts themselves with new signing",
+      slug: "arsenal-sign-havertz",
       userId: user2.id,
-      categoryId: category4.id,
-      votes: 0,
+      categoryId: category1.id,
+      views: 6503,
+    },
+  });
+
+  const topic5 = await prisma.topic.create({
+    data: {
+      title: "Busquets has follwed Messi's crumbs to Inter Miami",
+      slug: "busquets-biscuits",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 1200,
+    },
+  });
+
+  const topic6 = await prisma.topic.create({
+    data: {
+      title: "Arsenal are not going dowm, they're yelling Timber",
+      slug: "arsenal-interedt-in-jurrien-timber",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 4000,
+    },
+  });
+  const topic7 = await prisma.topic.create({
+    data: {
+      title: "Manchester United withdraw contract offer made to De Gea",
+      slug: "de-gea-contract-withdrawn",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 616,
+    },
+  });
+  const topic8 = await prisma.topic.create({
+    data: {
+      title: "Liverpool fans delusionly think they are in for Mbappe",
+      slug: "liverpool-mbappe-links",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 3245,
+    },
+  });
+  const topic9 = await prisma.topic.create({
+    data: {
+      title: "Sandro Tonali agrees terms with Newcastle United",
+      slug: "tonali-saudi-corruption",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 400,
+    },
+  });
+  const topic10 = await prisma.topic.create({
+    data: {
+      title: "Robbie Keane, new manager of boyhood club Maccabi Tel Aviv",
+      slug: "keane-tel-aviv",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 1200,
+    },
+  });
+  const topic11 = await prisma.topic.create({
+    data: {
+      title: "Mesut Özil wins Fortnite tournament",
+      slug: "ozil-fortnite",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 111,
+    },
+  });
+  const topic12 = await prisma.topic.create({
+    data: {
+      title: "Eni Aluko thinks Pep bid for Mr. Pilau to help Arsenal",
+      slug: "aluko-stupido",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 3322,
+    },
+  });
+  const topic13 = await prisma.topic.create({
+    data: {
+      title:
+        "Lionel Messi in Oscars discussions after immaculate acting performance",
+      slug: "messi-oscars",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 854,
+    },
+  });
+  const topic14 = await prisma.topic.create({
+    data: {
+      title: "Kovacic moves from mid table team to title winners",
+      slug: "kovacic-signs-for-city",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 2300,
+    },
+  });
+  const topic15 = await prisma.topic.create({
+    data: {
+      title:
+        "Bayern bid £60m for Harry Kane, hoping Spurs would think the bid is for Richarlison",
+      slug: "kane-bayern",
+      userId: user1.id,
+      categoryId: category1.id,
+      views: 2495,
+    },
+  });
+  const topic16 = await prisma.topic.create({
+    data: {
+      title: "Ruben Loftus-Cheek signs for Milan",
+      slug: "rlc-milan",
+      userId: user2.id,
+      categoryId: category1.id,
+      views: 1200,
     },
   });
 
@@ -151,6 +265,14 @@ async function main() {
       content: "This is the first post for Topic 4",
       userId: user2.id,
       topicId: topic4.id,
+    },
+  });
+
+  await prisma.post.create({
+    data: {
+      content: "This is the first post for Topic 5",
+      userId: user1.id,
+      topicId: topic5.id,
     },
   });
 }

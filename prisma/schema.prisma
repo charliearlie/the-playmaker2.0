@@ -59,7 +59,7 @@ model Topic {
   title             String
   user              User             @relation(fields: [userId], references: [id])
   userId            String
-  votes             Int
+  views             Int
   slug              String           @unique
   posts             Post[]
   likes             TopicLike[]
