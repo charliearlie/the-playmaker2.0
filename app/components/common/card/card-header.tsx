@@ -13,7 +13,7 @@ export default function CardHeader({
 }: PropsWithChildren<Props>) {
   const { isCollapsed, toggleCollapse } = useContext(CardContext);
   return (
-    <div className="flex justify-between rounded-t-sm bg-slate-800 p-2 text-center text-slate-200 text-2xl font-bold">
+    <div className="flex justify-between rounded-t-sm bg-slate-800 p-2 text-center text-slate-100 text-2xl font-bold">
       <h2>{children}</h2>
       {canMinimise && (
         <Button
