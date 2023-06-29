@@ -4,20 +4,23 @@ import { ArrowRightFromLine } from "lucide-react";
 import dayjs from "dayjs";
 
 type Props = {
+  hideTitle?: boolean;
   latestPost: Post & {
     user: User;
     topic: Topic;
   };
 };
 
-export default function LatestPost({ latestPost }: Props) {
+export default function LatestPost({ hideTitle = false, latestPost }: Props) {
   if (!latestPost) {
     return <p>No posts yet</p>;
   }
 
   return (
     <div className="flex flex-col items-start">
-      <PlaymakerLink href="/">{latestPost?.topic.title}</PlaymakerLink>
+      {!hideTitle && (
+        <PlaymakerLink href="/">{latestPost?.topic.title}</PlaymakerLink>
+      )}
       <p className="text-sm">
         {dayjs(latestPost?.createdAt).format("ddd DD MMM, YYYY HH:mm")}
       </p>
