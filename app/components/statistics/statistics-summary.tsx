@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from "../common/card";
 import CardSubHeader from "../common/card/card-subheader";
-import { getTotalNumberOfPosts } from "@/app/services/posts-service";
+import { getTotalNumberOfPosts } from "@/services/posts-service";
 import {
   getMostRecentUser,
   getTotalNumberOfUsers,
   getUserRoles,
-} from "@/app/services/users-service";
+} from "@/services/users-service";
 import PlaymakerLink from "../common/link";
 
 const getStatData = async () => {
