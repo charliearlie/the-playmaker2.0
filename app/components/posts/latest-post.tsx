@@ -4,29 +4,31 @@ import { ArrowRightFromLine } from "lucide-react";
 import dayjs from "dayjs";
 
 type Props = {
+  createdAt: string;
   hideTitle?: boolean;
-  latestPost: Post & {
-    user: User;
-    topic: Topic;
-  };
+  title: string;
+  username: string;
 };
 
-export default function LatestPost({ hideTitle = false, latestPost }: Props) {
-  if (!latestPost) {
+export default function LatestPost({
+  createdAt,
+  hideTitle = false,
+  title,
+  username,
+}: Props) {
+  if (!title) {
     return <p>No posts yet</p>;
   }
 
   return (
     <div className="flex flex-col items-start">
-      {!hideTitle && (
-        <PlaymakerLink href="/">{latestPost?.topic.title}</PlaymakerLink>
-      )}
+      {!hideTitle && <PlaymakerLink href="/">{title}</PlaymakerLink>}
       <p className="text-sm">
-        {dayjs(latestPost?.createdAt).format("ddd DD MMM, YYYY HH:mm")}
+        {dayjs(createdAt).format("ddd DD MMM, YYYY HH:mm")}
       </p>
       <div className="flex gap-1">
         <PlaymakerLink className="text-xs" href="/">
-          {latestPost?.user.username}
+          {username}
         </PlaymakerLink>
         <PlaymakerLink className="text-xs" href="/">
           <ArrowRightFromLine height={16} className="text-xs font-bold" />

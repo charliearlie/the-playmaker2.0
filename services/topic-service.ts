@@ -1,61 +1,77 @@
-import { prisma } from "@/lib/prisma";
+import supabase from "@/lib/supabase";
 
 export const getTopicsPerCategory = async (
   categoryId: string,
   page: number,
   numberOfTopics = 10
 ) => {
-  const totalTopics = await prisma.topic.count({
-    where: {
-      categoryId,
-    },
-  });
+  const { data: totalTopics, error: countError } = await supabase
+    .from("Topic")
+    .select("*", { count: "exact" })
+    .eq("category_id", categoryId);
+  if (countError) {
+    console.error(countError);
+  }
 
-  const totalPages = Math.ceil(totalTopics / numberOfTopics);
+  const totalPages = Math.ceil((totalTopics?.length || 0) / numberOfTopics);
 
-  const topics = await prisma.topic.findMany({
-    where: {
-      categoryId,
-    },
-    include: {
-      user: true,
-    },
-    take: numberOfTopics,
-    skip: (page - 1) * numberOfTopics || 0,
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const { data: topics, error: topicsError } = await supabase
+    .from("Topic")
+    .select(
+      `
+      *,
+      User (*)
+    `
+    )
+    .eq("category_id", categoryId)
+    .order("createdAt", { ascending: false })
+    .range((page - 1) * numberOfTopics || 0, page * numberOfTopics - 1);
+  if (topicsError) {
+    console.error(topicsError);
+  }
 
-  const enrichedTopics = topics.map(async (topic) => {
-    const postCount = await prisma.post.count({
-      where: {
-        topicId: topic.id,
-      },
-    });
+  const enrichedTopics = await Promise.all(
+    (topics || []).map(async (topic) => {
+      const { User, ...topicRest } = topic;
+      const { data: postCount, error: countError } = await supabase
+        .from("Post")
+        .select("*", { count: "exact" })
+        .eq("topic_id", topic.id);
+      if (countError) {
+        console.error(countError);
+      }
 
-    const latestPost = await prisma.post.findFirst({
-      where: {
-        topicId: topic.id,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        topic: true,
-        user: true,
-      },
-    });
+      const { data: latestPost, error: postError } = await supabase
+        .from("Post")
+        .select(
+          `
+          *,
+          Topic (*),
+          User (*)
+        `
+        )
+        .eq("topic_id", topic.id)
+        .order("createdAt", { ascending: false })
+        .single();
+      if (postError) {
+        console.error(postError);
+      }
 
-    return {
-      ...topic,
-      postCount,
-      latestPost,
-    };
-  });
+      const { User: user, ...postRest } = latestPost!;
+      return {
+        ...topicRest,
+        user, // rename 'User' to 'user'
+        postCount: postCount?.length || 0,
+        latestPost: {
+          ...postRest,
+          user,
+        },
+      };
+    })
+  );
 
   return {
-    topics: await Promise.all(enrichedTopics),
+    topics: enrichedTopics,
     totalPages,
   };
 };

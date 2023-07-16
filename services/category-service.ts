@@ -9,7 +9,7 @@ interface Category {
 
 export const getCategoryFromSlug = async (categorySlug: string) => {
   const { data: Category, error } = await supabase
-    .from("category")
+    .from("Category")
     .select("*")
     .eq("slug", categorySlug)
     .single();

@@ -11,14 +11,19 @@ export default async function ForumPage({ params, searchParams }: Props) {
   const categorySlug = params.slug;
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const category = await getCategoryFromSlug(categorySlug);
-  console.log("CATEGORY", category);
 
   if (category) {
+    const { id, name, slug } = category;
     return (
       <Suspense fallback={<h3>Loading...</h3>}>
         <div className="w-full">
           {JSON.stringify(searchParams)}
-          <TopicsList category={category} page={page} />
+          <TopicsList
+            categoryId={id}
+            categoryName={name}
+            categorySlug={slug}
+            page={page}
+          />
         </div>
       </Suspense>
     );
