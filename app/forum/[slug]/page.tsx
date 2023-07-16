@@ -11,6 +11,7 @@ export default async function ForumPage({ params, searchParams }: Props) {
   const categorySlug = params.slug;
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const category = await getCategoryFromSlug(categorySlug);
+  console.log("CATEGORY", category);
 
   if (category) {
     return (

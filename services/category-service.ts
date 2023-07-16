@@ -1,5 +1,18 @@
-import { prisma } from "@/lib/prisma";
+import supabase from "@/lib/supabase";
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  groupId: string;
+}
 
 export const getCategoryFromSlug = async (categorySlug: string) => {
-  return await prisma.category.findUnique({ where: { slug: categorySlug } });
+  const { data: Category, error } = await supabase
+    .from("category")
+    .select("*")
+    .eq("slug", categorySlug)
+    .single();
+
+  return Category;
 };
