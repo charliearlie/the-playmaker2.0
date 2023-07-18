@@ -60,11 +60,11 @@ export const getTopicsPerCategory = async (
       const { User: user, ...postRest } = latestPost!;
       return {
         ...topicRest,
-        user, // rename 'User' to 'user'
+        user: User[0],
         postCount: postCount?.length || 0,
         latestPost: {
           ...postRest,
-          user,
+          user: user[0],
         },
       };
     })
