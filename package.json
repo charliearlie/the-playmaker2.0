@@ -14,7 +14,7 @@
   "dependencies": {
     "@prisma/client": "^4.15.0",
     "@supabase/auth-helpers-nextjs": "^0.7.2",
-    "@supabase/supabase-js": "^2.24.0",
+    "@supabase/supabase-js": "^2.26.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.9",
     "@types/react-dom": "18.2.4",
@@ -22,6 +22,7 @@
     "bcrypt": "^5.1.0",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.8",
+    "encoding": "^0.1.13",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
     "iron-session": "^6.3.1",
