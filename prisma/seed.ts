@@ -1,6 +1,5 @@
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
-import { getTopicsForSeed } from "./seed-data";
 
 function generateSlug(title: string) {
   return title

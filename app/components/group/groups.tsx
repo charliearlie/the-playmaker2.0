@@ -42,7 +42,13 @@ export default async function Groups() {
                       {category.postCount}
                     </td>
                     <td className="hidden md:table-cell p-2 text-center md:w-3/12">
-                      <LatestPost latestPost={category.latestPost!} />
+                      {category.latestPost ? (
+                        <LatestPost
+                          createdAt={category.latestPost?.createdAt.toISOString()}
+                          title={category.name}
+                          username={category.latestPost.user.username}
+                        />
+                      ) : null}
                     </td>
                   </tr>
                 ))}

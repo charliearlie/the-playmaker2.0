@@ -6,8 +6,8 @@ import dayjs from "dayjs";
 type Props = {
   createdAt: string;
   hideTitle?: boolean;
-  title: string;
-  username: string;
+  title?: string;
+  username?: string;
 };
 
 export default function LatestPost({
