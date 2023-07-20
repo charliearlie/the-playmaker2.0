@@ -24,6 +24,10 @@ export default async function Groups() {
                 </tr>
               </thead>
               <tbody>
+                {/* for some reason on Vercel this category is
+                implicitly `any` when it is typed...
+
+                @ts-ignore */}
                 {group.categories.map((category) => (
                   <tr
                     key={category.id}
