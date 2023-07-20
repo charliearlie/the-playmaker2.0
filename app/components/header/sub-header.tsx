@@ -1,3 +1,4 @@
+import { search } from "@/app/actions";
 import Link from "next/link";
 
 export default function SubHeader() {
@@ -32,12 +33,15 @@ export default function SubHeader() {
             ></path>
           </svg>
         </div>
-        <input
-          type="text"
-          id="search-navbar"
-          className="block w-full p-2 pl-10 text-sm text-gray-300 border rounded-lg bg-slate-900 border-slate-500 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Search..."
-        />
+        <form action={search}>
+          <input
+            type="text"
+            id="search-navbar"
+            name="searchTerm"
+            className="block w-full p-2 pl-10 text-sm text-gray-300 border rounded-lg bg-slate-900 border-slate-500 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Search..."
+          />
+        </form>
       </div>
     </div>
   );

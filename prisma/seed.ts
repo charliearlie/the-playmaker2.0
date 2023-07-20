@@ -87,7 +87,7 @@ async function main() {
         "Arsenal still trying to sign Mr. Pilau, despite him retiring 4 years ago",
       slug: "arsenal-sign-mr-pilau",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 9100,
     },
   });
@@ -97,7 +97,7 @@ async function main() {
       title: "PIF buy Gervinho and loan him to Newcastle",
       slug: "gervinho-loan-newcastle",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 210,
     },
   });
@@ -107,7 +107,7 @@ async function main() {
       title: "Arctic Monkeys tribute act headline Glastonbury",
       slug: "arctic-monkeys-tribute",
       userId: user2.id,
-      categoryId: category2.id,
+      categorySlug: category2.slug,
       views: 5410,
     },
   });
@@ -117,7 +117,7 @@ async function main() {
       title: "Arsenal might have hurts themselves with new signing",
       slug: "arsenal-sign-havertz",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 6503,
     },
   });
@@ -127,7 +127,7 @@ async function main() {
       title: "Busquets has follwed Messi's crumbs to Inter Miami",
       slug: "busquets-biscuits",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 1200,
     },
   });
@@ -137,7 +137,7 @@ async function main() {
       title: "Arsenal are not going dowm, they're yelling Timber",
       slug: "arsenal-interedt-in-jurrien-timber",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 4000,
     },
   });
@@ -146,7 +146,7 @@ async function main() {
       title: "Manchester United withdraw contract offer made to De Gea",
       slug: "de-gea-contract-withdrawn",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 616,
     },
   });
@@ -155,7 +155,7 @@ async function main() {
       title: "Liverpool fans delusionly think they are in for Mbappe",
       slug: "liverpool-mbappe-links",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 3245,
     },
   });
@@ -164,7 +164,7 @@ async function main() {
       title: "Sandro Tonali agrees terms with Newcastle United",
       slug: "tonali-saudi-corruption",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 400,
     },
   });
@@ -173,7 +173,7 @@ async function main() {
       title: "Robbie Keane, new manager of boyhood club Maccabi Tel Aviv",
       slug: "keane-tel-aviv",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 1200,
     },
   });
@@ -182,7 +182,7 @@ async function main() {
       title: "Mesut Özil wins Fortnite tournament",
       slug: "ozil-fortnite",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 111,
     },
   });
@@ -191,7 +191,7 @@ async function main() {
       title: "Eni Aluko thinks Pep bid for Mr. Pilau to help Arsenal",
       slug: "aluko-stupido",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 3322,
     },
   });
@@ -201,7 +201,7 @@ async function main() {
         "Lionel Messi in Oscars discussions after immaculate acting performance",
       slug: "messi-oscars",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 854,
     },
   });
@@ -210,7 +210,7 @@ async function main() {
       title: "Kovacic moves from mid table team to title winners",
       slug: "kovacic-signs-for-city",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 2300,
     },
   });
@@ -220,7 +220,7 @@ async function main() {
         "Bayern bid £60m for Harry Kane, hoping Spurs would think the bid is for Richarlison",
       slug: "kane-bayern",
       userId: user1.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 2495,
     },
   });
@@ -229,7 +229,7 @@ async function main() {
       title: "Ruben Loftus-Cheek signs for Milan",
       slug: "rlc-milan",
       userId: user2.id,
-      categoryId: category1.id,
+      categorySlug: category1.slug,
       views: 1200,
     },
   });

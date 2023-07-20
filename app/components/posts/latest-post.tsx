@@ -7,20 +7,22 @@ type Props = {
   hideTitle?: boolean;
   latestPost: Post & {
     user: User;
-    topic: Topic;
   };
+  topicTitle: string;
 };
 
-export default function LatestPost({ hideTitle = false, latestPost }: Props) {
+export default function LatestPost({
+  hideTitle = false,
+  latestPost,
+  topicTitle,
+}: Props) {
   if (!latestPost) {
     return <p>No posts yet</p>;
   }
 
   return (
     <div className="flex flex-col items-start">
-      {!hideTitle && (
-        <PlaymakerLink href="/">{latestPost?.topic.title}</PlaymakerLink>
-      )}
+      {!hideTitle && <PlaymakerLink href="/">{topicTitle}</PlaymakerLink>}
       <p className="text-sm">
         {dayjs(latestPost?.createdAt).format("ddd DD MMM, YYYY HH:mm")}
       </p>

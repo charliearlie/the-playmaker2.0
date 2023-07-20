@@ -2,21 +2,27 @@ import Link from "next/link";
 import LatestPost from "../posts/latest-post";
 import { Card, CardContent, CardHeader } from "../common/card";
 import { Category } from "@prisma/client";
-import { getTopicsPerCategory } from "@/services/topic-service";
+import { EnrichedTopic } from "@/services/topic-service";
 import PaginationLinks from "../pagination/pagination-links";
 
 type Props = {
-  category: Category;
+  category?: Category;
   page?: number;
+  topics: EnrichedTopic[];
+  totalPages?: number;
 };
 
-export default async function TopicsList({ category, page = 1 }: Props) {
-  const { topics, totalPages } = await getTopicsPerCategory(category.id, page);
+export default async function TopicsList({
+  category,
+  page = 1,
+  topics,
+  totalPages = 0,
+}: Props) {
   return (
     <div>
       <PaginationLinks currentPage={page} numberOfPages={totalPages} />
-      <Card key={category.id}>
-        <CardHeader canMinimise>{category.name}</CardHeader>
+      <Card>
+        {category && <CardHeader canMinimise>{category.name}</CardHeader>}
         <CardContent noPadding>
           <table className="w-full table-fixed">
             <thead>
@@ -37,7 +43,7 @@ export default async function TopicsList({ category, page = 1 }: Props) {
                     <div className="flex flex-col justify-start">
                       <Link
                         className="text-lg underline text-slate-700 hover:text-slate-400"
-                        href={`/forum/${category.slug}/${topic.slug}`}
+                        href={`/forum/${topic.categorySlug}/${topic.slug}`}
                       >
                         {topic.title}
                       </Link>
@@ -55,6 +61,7 @@ export default async function TopicsList({ category, page = 1 }: Props) {
                     <LatestPost
                       hideTitle={true}
                       latestPost={topic.latestPost!}
+                      topicTitle={topic.title}
                     />
                   </td>
                 </tr>

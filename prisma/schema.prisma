@@ -64,8 +64,8 @@ model Topic {
   slug              String           @unique
   posts             Post[]
   likes             TopicLike[]
-  category          Category         @relation(fields: [categoryId], references: [id])
-  categoryId        String
+  category          Category         @relation(fields: [categorySlug], references: [slug])
+  categorySlug        String
 }
 
 model Post {

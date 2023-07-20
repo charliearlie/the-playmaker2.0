@@ -21,7 +21,7 @@ export const getGroupData = async () => {
       const latestPost = await prisma.post.findFirst({
         where: {
           topic: {
-            categoryId: category.id,
+            categorySlug: category.slug,
           },
         },
         orderBy: {
