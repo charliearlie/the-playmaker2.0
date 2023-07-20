@@ -61,15 +61,19 @@ export default function PaginationLinks({
     return Array.from({ length: numberOfPages }, (_, i) => i + 1);
   };
 
+  const pages = useMemo(
+    () => getPagesToDisplay(),
+    [currentPage, getPagesToDisplay]
+  );
   if (numberOfPages <= 1) return null;
 
-  const pages = useMemo(() => getPagesToDisplay(), [currentPage]);
   return (
     <div className="flex gap-1">
       {pages.map((page) => {
         const isCurrentPage = page == currentPage;
         return (
           <Button
+            key={page}
             asLink
             href={`${pathName}?page=${page}`}
             variant="neutral"

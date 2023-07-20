@@ -36,7 +36,9 @@ export default async function StatisticsSummary() {
         <p className="flex gap-1">
           <span>Legend:</span>[
           {roles.map((role) => (
-            <span className={`font-semibold ${role.colour}`}>{role.label}</span>
+            <span key={role.id} className={`font-semibold ${role.colour}`}>
+              {role.label}
+            </span>
           ))}
           ]
         </p>

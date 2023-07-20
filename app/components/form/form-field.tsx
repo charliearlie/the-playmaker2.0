@@ -62,4 +62,6 @@ const FormField = forwardRef<HTMLInputElement, Props>(
   }
 );
 
+FormField.displayName = "FormField";
+
 export default FormField;

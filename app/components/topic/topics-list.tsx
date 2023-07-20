@@ -38,7 +38,10 @@ export default async function TopicsList({
             </thead>
             <tbody>
               {topics.map((topic) => (
-                <tr className="border-solid border-b-2 border-slate-200 last:border-b-0">
+                <tr
+                  key={topic.id}
+                  className="border-solid border-b-2 border-slate-200 last:border-b-0"
+                >
                   <td className="w-6/12 md:w-4/12 p-2 bg-slate-50 rounded-sm align-top">
                     <div className="flex flex-col justify-start">
                       <Link

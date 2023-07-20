@@ -9,7 +9,7 @@ export default async function Groups() {
   return (
     <div>
       {groups.map((group) => (
-        <Card>
+        <Card key={group.id}>
           <CardHeader canMinimise>{group.name}</CardHeader>
           <CardContent noPadding>
             <table className="w-full table-fixed">
@@ -25,7 +25,10 @@ export default async function Groups() {
               </thead>
               <tbody>
                 {group.categories.map((category) => (
-                  <tr className="border-solid border-b-2 border-slate-200 last:border-b-0">
+                  <tr
+                    key={category.id}
+                    className="border-solid border-b-2 border-slate-200 last:border-b-0"
+                  >
                     <td className="w-8/12 md:w-6/12 p-2 bg-slate-50 rounded-sm align-top">
                       <div className="flex flex-col justify-start">
                         <Link
@@ -42,7 +45,10 @@ export default async function Groups() {
                       {category.postCount}
                     </td>
                     <td className="hidden md:table-cell p-2 text-center md:w-3/12">
-                      <LatestPost latestPost={category.latestPost!} />
+                      <LatestPost
+                        latestPost={category.latestPost!}
+                        topicTitle={category.latestPost?.topic.title!}
+                      />
                     </td>
                   </tr>
                 ))}
