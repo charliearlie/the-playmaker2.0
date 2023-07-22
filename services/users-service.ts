@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { User } from "@prisma/client";
 
 const roles = [
   {
@@ -17,6 +18,11 @@ const roles = [
     colour: "text-orange-600",
   },
 ];
+
+export type SafeUserData = Pick<
+  User,
+  "username" | "avatarUrl" | "email" | "id" | "role"
+>;
 
 export const getTotalNumberOfUsers = async () => {
   return await prisma.user.count();
