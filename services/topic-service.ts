@@ -105,7 +105,7 @@ export const searchTopics = async (searchTerm: string) => {
          "User"."id" AS "userId",
          "User"."username",
          "User"."role" AS "userRole",
-         "User"."avatarUrl" AS "userAvatarUrl"
+         "User"."avatarUrl" AS "userAvatarUrl",
          "User"."email" AS "userEmail"
          /* Add any other User fields here with aliases if they overlap with Topic fields */
   FROM "Topic"
