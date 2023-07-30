@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
 import { Post, Role, Topic, User } from "@prisma/client";
+import { prisma } from "@/prisma";
 import { SafeUserData } from "./users-service";
 
 export type EnrichedTopic = Topic & {

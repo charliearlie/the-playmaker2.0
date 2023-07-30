@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/prisma";
 
 export const getTotalNumberOfUsers = async () => {
   return await prisma.user.count();

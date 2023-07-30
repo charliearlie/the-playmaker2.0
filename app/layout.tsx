@@ -1,4 +1,5 @@
 import React from "react";
+import { channel } from "@/lib/supabase";
 import { Header } from "./components/header";
 import { Card, CardContent } from "./components/common/card";
 import "./globals.css";
@@ -13,6 +14,26 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  channel
+    .on("presence", { event: "sync" }, () => {
+      const newState = channel.presenceState();
+      console.log("sync", newState);
+    })
+    .on("presence", { event: "join" }, ({ key, newPresences }) => {
+      console.log("join", key, newPresences);
+    })
+    .on("presence", { event: "leave" }, ({ key, leftPresences }) => {
+      console.log("leave", key, leftPresences);
+    })
+    .subscribe(async (status) => {
+      if (status === "SUBSCRIBED") {
+        const presenceTrackStatus = await channel.track({
+          user: "user-1",
+          online_at: new Date().toISOString(),
+        });
+        console.log(presenceTrackStatus);
+      }
+    });
   return (
     <html>
       <body>

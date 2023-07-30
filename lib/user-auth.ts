@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import * as jose from "jose";
-import { prisma } from "./prisma";
+import { prisma } from "../prisma";
 import type { User, Prisma } from "@prisma/client";
 import { cookies } from "next/headers";
 

@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/prisma";
 
 export const getGroupData = async () => {
   const groupsWithCategories = await prisma.group.findMany({
