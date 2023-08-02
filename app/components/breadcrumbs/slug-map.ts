@@ -1,6 +1,6 @@
 type MappedLink = {
   name: string;
-  href: string;
+  href?: string;
 };
 
 export const slugMap = (slug: string) => {
@@ -8,6 +8,9 @@ export const slugMap = (slug: string) => {
     "search-results": {
       name: "Search Results",
       href: "/search",
+    },
+    forum: {
+      name: "Forum",
     },
   };
 

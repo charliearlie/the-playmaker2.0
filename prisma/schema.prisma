@@ -65,7 +65,7 @@ model Topic {
   posts             Post[]
   likes             TopicLike[]
   category          Category         @relation(fields: [categorySlug], references: [slug])
-  categorySlug        String
+  categorySlug      String
 }
 
 model Post {
@@ -78,6 +78,7 @@ model Post {
   topic             Topic            @relation(fields: [topicId], references: [id])
   topicId           String
   likes             PostLike[]
+  originalPost      Boolean          @default(false)
 }
 
 model PostLike {

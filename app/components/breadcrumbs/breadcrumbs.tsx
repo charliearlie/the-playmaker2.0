@@ -23,7 +23,7 @@ export default function Breadcrumbs({ optionalCrumb }: Props) {
         return (
           <>
             <ChevronRightIcon />
-            <Link href={href}>{name}</Link>
+            {href ? <Link href={href}>{name}</Link> : <span>{name}</span>}
           </>
         );
       })}
