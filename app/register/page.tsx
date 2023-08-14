@@ -46,7 +46,12 @@ export default function RegisterPage() {
               <FormField label="Email" name="email" type="text" />
               <FormField label="Password" name="password" type="password" />
               <div className="flex flex-col md:flex-row md:justify-between">
-                <Button className="w-25" variant="primary" type="submit">
+                <Button
+                  className="w-25"
+                  variant="primary"
+                  type="submit"
+                  formAction={registerUser}
+                >
                   Sign up
                 </Button>
                 <Link

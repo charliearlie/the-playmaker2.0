@@ -27,7 +27,7 @@ export default function SignIn() {
         path: "/",
       });
     }
-    redirect("/user");
+    redirect("/");
   };
 
   return (
@@ -36,7 +36,7 @@ export default function SignIn() {
         <CardContent>
           <div className="mb-4 w-full sm:px-8 pt-6 pb-10 flex flex-col items-center">
             <h1 className="pt-4 pb-8 text-center text-3xl font-bold">Log in</h1>
-            <form className="w-auto md:w-80" action={loginUser}>
+            <form className="w-auto md:w-80">
               <FormField
                 label="Email or username" // Could default label to input name with a capital letter?
                 name="emailOrUsername"
@@ -50,7 +50,12 @@ export default function SignIn() {
                 required
               />
               <div className="flex flex-col">
-                <Button name="login" variant="primary">
+                <Button
+                  name="login"
+                  variant="primary"
+                  type="submit"
+                  formAction={loginUser}
+                >
                   Log in
                 </Button>
                 <Link
