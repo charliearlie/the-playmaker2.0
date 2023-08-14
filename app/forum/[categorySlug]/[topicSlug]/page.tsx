@@ -26,7 +26,7 @@ export default async function ForumPage({ params, searchParams }: Props) {
         <div className="w-full">
           <ul>
             {posts.map((post) => (
-              <div>{post.content}</div>
+              <div key={post.id}>{post.content}</div>
             ))}
           </ul>
         </div>
