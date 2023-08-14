@@ -2,13 +2,10 @@ import { cookies } from "next/headers";
 import { getSession } from "./user-auth";
 
 type User = {
-  email: string;
-  username: string;
+  email?: string;
+  username?: string;
   isLoggedIn: boolean;
-};
-
-type Data = {
-  user: User;
+  id?: string;
 };
 export default async function useUser() {
   const cookie = cookies().get("user_session");
@@ -19,7 +16,7 @@ export default async function useUser() {
       return {
         isLoggedIn: true,
         ...data,
-      };
+      } as User;
     }
   }
 

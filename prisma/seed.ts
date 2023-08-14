@@ -1,12 +1,6 @@
 import { prisma } from ".";
 import bcrypt from "bcrypt";
-
-function generateSlug(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
-}
+import { generateSlug } from "@/lib/utils";
 
 async function main() {
   const password = "password";

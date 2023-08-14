@@ -1,6 +1,7 @@
-import { Post, Role, Topic, User } from "@prisma/client";
+import { Post, Prisma, Role, Topic, User } from "@prisma/client";
 import { prisma } from "@/prisma";
 import { SafeUserData } from "./users-service";
+import { generateSlug } from "@/lib/utils";
 
 export type EnrichedTopic = Topic & {
   postCount: number;
@@ -154,4 +155,63 @@ export const searchTopics = async (searchTerm: string) => {
     topics: enrichedTopics,
     totalPages: 1,
   };
+};
+
+type CreateTopicAndPostOptions = {
+  categorySlug: string;
+  postText: string;
+  topicTitle: string;
+  userId: string;
+};
+export const createTopicAndInitialpost = async ({
+  categorySlug,
+  postText,
+  topicTitle,
+  userId,
+}: CreateTopicAndPostOptions) => {
+  const category = await prisma.category.findUnique({
+    where: {
+      slug: categorySlug,
+    },
+  });
+  if (category) {
+    const newTopic = await prisma.topic.create({
+      data: {
+        category: {
+          connect: {
+            slug: categorySlug,
+          },
+        },
+        title: topicTitle,
+        slug: generateSlug(topicTitle),
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+
+    if (newTopic) {
+      const originalPost = await prisma.post.create({
+        data: {
+          topicId: newTopic.id,
+          content: postText,
+          userId: newTopic.userId,
+          originalPost: true,
+        },
+      });
+      return `/forum/${newTopic.categorySlug}/${newTopic.slug}`;
+    }
+  }
+};
+
+export const getTopicFromSlug = async (slug: string) => {
+  const topic = await prisma.topic.findUnique({
+    where: {
+      slug,
+    },
+  });
+
+  return topic;
 };
