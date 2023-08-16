@@ -21,10 +21,10 @@ export default function Breadcrumbs({ optionalCrumb }: Props) {
       {segments.map((segment) => {
         const { href, name } = slugMap(segment);
         return (
-          <>
+          <div className="flex gap-1" key={name}>
             <ChevronRightIcon />
             {href ? <Link href={href}>{name}</Link> : <span>{name}</span>}
-          </>
+          </div>
         );
       })}
       {optionalCrumb && (

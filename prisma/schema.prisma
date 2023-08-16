@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id                String           @id @default(uuid())
+  id                String           @id @db.Uuid @default(uuid())
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   username          String           @unique
@@ -38,13 +38,13 @@ model ForgotPassword {
 }
 
 model Group {
-  id          String        @id @default(uuid())
+  id                String           @id @db.Uuid @default(uuid())
   name        String        @unique
   categories  Category[]
 }
 
 model Category {
-  id          String        @id @default(uuid())
+  id                String           @id @db.Uuid @default(uuid())
   name        String        @unique
   description String
   slug        String        @unique
@@ -54,7 +54,7 @@ model Category {
 }
 
 model Topic {
-  id                String           @id @default(uuid())
+  id                String           @id @db.Uuid @default(uuid())
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   title             String
@@ -69,7 +69,7 @@ model Topic {
 }
 
 model Post {
-  id                String           @id @default(uuid())
+  id                String           @id @db.Uuid @default(uuid())
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   content           String

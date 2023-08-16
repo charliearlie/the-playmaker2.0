@@ -10,6 +10,9 @@ export const getTopicPosts = async (topicId: string) => {
       where: {
         topicId,
       },
+      include: {
+        user: true,
+      },
     })) || []
   );
 };
