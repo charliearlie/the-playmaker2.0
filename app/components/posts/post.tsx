@@ -48,11 +48,12 @@ export default function Post({ post }: Props) {
                 return !inline && match ? (
                   <SyntaxHighlighter
                     {...props}
-                    children={String(children).replace(/\n$/, "")}
                     style={atomDark}
                     language="javascript"
                     PreTag="div"
-                  />
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
                 ) : (
                   <code {...props} className={className}>
                     {children}
