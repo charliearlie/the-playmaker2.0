@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -9,20 +9,20 @@ datasource db {
 }
 
 model User {
-  id                String           @id @db.Uuid @default(uuid())
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  username          String           @unique
-  email             String           @unique
-  password          String
-  active            Boolean          @default(true)
-  avatarUrl         String?
-  feedbackScore     Int?
-  posts             Post[]
-  topics            Topic[]
-  role              Role             @default(USER)
-  likedPosts        PostLike[]
-  likedTopics       TopicLike[]
+  id            String      @id @default(uuid()) @db.Uuid
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  username      String      @unique
+  email         String      @unique
+  password      String
+  active        Boolean     @default(true)
+  avatarUrl     String?
+  feedbackScore Int?
+  posts         Post[]
+  topics        Topic[]
+  role          Role        @default(USER)
+  likedPosts    PostLike[]
+  likedTopics   TopicLike[]
 }
 
 enum Role {
@@ -38,65 +38,65 @@ model ForgotPassword {
 }
 
 model Group {
-  id                String           @id @db.Uuid @default(uuid())
-  name        String        @unique
-  categories  Category[]
+  id         String     @id @default(uuid()) @db.Uuid
+  name       String     @unique
+  categories Category[]
 }
 
 model Category {
-  id                String           @id @db.Uuid @default(uuid())
-  name        String        @unique
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @unique
   description String
-  slug        String        @unique
+  slug        String  @unique
   topics      Topic[]
-  group       Group         @relation(fields: [groupId], references: [id])
-  groupId     String
+  group       Group   @relation(fields: [groupId], references: [id])
+  groupId     String  @db.Uuid
 }
 
 model Topic {
-  id                String           @id @db.Uuid @default(uuid())
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  title             String
-  user              User             @relation(fields: [userId], references: [id])
-  userId            String
-  views             Int              @default(0)
-  slug              String           @unique
-  posts             Post[]
-  likes             TopicLike[]
-  category          Category         @relation(fields: [categorySlug], references: [slug])
-  categorySlug      String
+  id           String      @id @default(uuid()) @db.Uuid
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  title        String
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String      @db.Uuid
+  views        Int         @default(0)
+  slug         String      @unique
+  posts        Post[]
+  likes        TopicLike[]
+  category     Category    @relation(fields: [categorySlug], references: [slug])
+  categorySlug String
 }
 
 model Post {
-  id                String           @id @db.Uuid @default(uuid())
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  content           String
-  user              User             @relation(fields: [userId], references: [id])
-  userId            String
-  topic             Topic            @relation(fields: [topicId], references: [id])
-  topicId           String
-  likes             PostLike[]
-  originalPost      Boolean          @default(false)
+  id           String     @id @default(uuid()) @db.Uuid
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  content      String
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String     @db.Uuid
+  topic        Topic      @relation(fields: [topicId], references: [id])
+  topicId      String     @db.Uuid
+  likes        PostLike[]
+  originalPost Boolean    @default(false)
 }
 
 model PostLike {
-  id         String @id @default(uuid())
-  user       User   @relation(fields: [userId], references: [id])
-  userId     String
-  post       Post   @relation(fields: [postId], references: [id])
-  postId     String
+  id         String     @id @default(uuid())
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String     @db.Uuid
+  post       Post       @relation(fields: [postId], references: [id])
+  postId     String     @db.Uuid
   likeStatus LikeStatus
 }
 
 model TopicLike {
-  id            String     @id @default(uuid())
-  user          User       @relation(fields: [userId], references: [id])
-  userId        String
-  topic         Topic      @relation(fields: [topicId], references: [id])
-  topicId       String
-  likeStatus    LikeStatus
+  id         String     @id @default(uuid())
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String     @db.Uuid
+  topic      Topic      @relation(fields: [topicId], references: [id])
+  topicId    String     @db.Uuid
+  likeStatus LikeStatus
 }
 
 enum LikeStatus {
