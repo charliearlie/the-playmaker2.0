@@ -41,7 +41,6 @@ export default function Post({ post }: Props) {
         </div>
         <div className="h-full col-span-4 sm:col-span-3 lg:col-span-4 p-2">
           <ReactMarkdown
-            children={post.content}
             components={{
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
@@ -71,7 +70,9 @@ export default function Post({ post }: Props) {
                 );
               },
             }}
-          />
+          >
+            {post.content}
+          </ReactMarkdown>
         </div>
       </div>
       <CardFooter className="flex justify-end">
