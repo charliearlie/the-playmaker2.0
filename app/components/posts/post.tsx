@@ -1,10 +1,14 @@
+"use client";
 import { Post, User } from "@prisma/client";
-import { Card, CardContent, CardSubheader } from "../common/card";
+import { CardSubheader } from "../common/card";
 import { formatDateToUsersPreference, getYear } from "@/lib/dates";
 import RoleBadge from "../user/role-badge";
 import CardFooter from "../common/card/card-footer";
 import Button from "../common/button";
 import { TextQuote } from "lucide-react";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type Props = {
   post: Post & {
@@ -30,13 +34,43 @@ export default function Post({ post }: Props) {
           <div className="flex sm:flex-col flex-1 items-center sm:items-start justify-between sm:justify-start">
             <h4 className="font-semibold text-lg">{post.user.username}</h4>
             <RoleBadge role={post.user.role} />
+            <p className="hidden sm:block">
+              Joined: {getYear(post.user.createdAt)}
+            </p>
           </div>
-          <p className="hidden sm:block">
-            Joined: {getYear(post.user.createdAt)}
-          </p>
         </div>
         <div className="h-full col-span-4 sm:col-span-3 lg:col-span-4 p-2">
-          {post.content}
+          <ReactMarkdown
+            children={post.content}
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    {...props}
+                    children={String(children).replace(/\n$/, "")}
+                    style={atomDark}
+                    language="javascript"
+                    PreTag="div"
+                  />
+                ) : (
+                  <code {...props} className={className}>
+                    {children}
+                  </code>
+                );
+              },
+              img({ alt, src, ...props }) {
+                return (
+                  <img
+                    className="max-w-48 max-h-96"
+                    src={src}
+                    alt={alt}
+                    {...props}
+                  />
+                );
+              },
+            }}
+          />
         </div>
       </div>
       <CardFooter className="flex justify-end">
