@@ -49,6 +49,7 @@ export default async function ForumPage({ params }: Props) {
       redirect(redirectPath);
     }
   };
+
   const category = await getCategoryFromSlug(categorySlug);
   // todo: Redirect if category doesn't exist
   if (category) {

@@ -18,7 +18,7 @@ type Props = {
 
 export default function Post({ post }: Props) {
   return (
-    <div>
+    <div id={post.id}>
       <CardSubheader>
         {formatDateToUsersPreference(post.createdAt)}
       </CardSubheader>
