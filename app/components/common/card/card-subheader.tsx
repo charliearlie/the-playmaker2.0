@@ -13,7 +13,7 @@ export default function CardSubHeader({
   const { isCollapsed } = useContext(CardContext);
   return (
     <div
-      className={`flex bg-slate-400 text-center text-lg font-semibold ${
+      className={`flex bg-slate-300 text-center text-lg font-semibold ${
         isCollapsed ? "max-h-0 p-0" : "max-h-screen py-1 px-2"
       } overflow-hidden ${className}`}
     >

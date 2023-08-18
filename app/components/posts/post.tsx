@@ -69,6 +69,14 @@ export default function Post({ post }: Props) {
                   />
                 );
               },
+              blockquote({ children }) {
+                return (
+                  <blockquote className="bg-slate-200 px-2 border-solid border-4 rounded-md border-slate-300">
+                    <strong>User wrote:</strong>
+                    <div className="py-4">{children}</div>
+                  </blockquote>
+                );
+              },
             }}
           >
             {post.content}

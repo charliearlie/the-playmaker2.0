@@ -14,18 +14,16 @@ type Props = {
 };
 
 export default async function TopicPage({ params, searchParams }: Props) {
-  const user = await useUser();
+  const { id: userId, isLoggedIn } = await useUser();
   const { categorySlug, topicSlug } = params;
   const topic = await getTopicFromSlug(topicSlug);
   const page = searchParams.page ? Number(searchParams.page) : 1;
-
-  console.log("categorySlug", categorySlug);
 
   const addPost = async (formData: FormData) => {
     "use server";
     const post = formData.get("post") || "";
 
-    if (!user.id || typeof post !== "string" || !topic) {
+    if (!userId || typeof post !== "string" || !topic) {
       // todo: handle error elegantly
       return null;
     }
@@ -33,36 +31,40 @@ export default async function TopicPage({ params, searchParams }: Props) {
     const newPost = await createPost({
       postText: post,
       topicId: topic.id,
-      userId: user.id,
+      userId: userId,
     });
 
     if (newPost) {
       redirect(`forum/${categorySlug}/${topic.slug}#${newPost.id}`);
     }
   };
+
   if (topic) {
     const posts = await getTopicPosts(topic?.id);
     return (
       <Suspense fallback={<h3>Loading...</h3>}>
         <div className="w-full">
           <Posts posts={posts} topicTitle={topic.title} />
-          <Card>
-            <CardHeader>Add reply</CardHeader>
-            <CardContent>
-              <form>
-                <label className="font-semibold" htmlFor="post">
-                  Post text
-                </label>
-                <Textarea
-                  className="bg-slate-200 font-normal text-md h-48"
-                  name="post"
-                />
-                <Button formAction={addPost} type="submit">
-                  Add reply
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          {/* TODO: turn this into a component */}
+          {isLoggedIn ? (
+            <Card>
+              <CardHeader>Add reply</CardHeader>
+              <CardContent>
+                <form>
+                  <label className="font-semibold" htmlFor="post">
+                    Post text
+                  </label>
+                  <Textarea
+                    className="bg-slate-200 font-normal text-md h-48"
+                    name="post"
+                  />
+                  <Button formAction={addPost} type="submit">
+                    Add reply
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          ) : null}
         </div>
       </Suspense>
     );
