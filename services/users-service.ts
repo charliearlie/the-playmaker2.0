@@ -1,27 +1,27 @@
-import { prisma } from "@/prisma";
-import { User } from "@prisma/client";
+import { prisma } from '@/prisma';
+import { User } from '@prisma/client';
 
 const roles = [
   {
-    id: "user",
-    label: "User",
-    colour: "text-slate-700",
+    id: 'user',
+    label: 'User',
+    colour: 'text-slate-700',
   },
   {
-    id: "mod",
-    label: "Moderator",
-    colour: "text-green-500",
+    id: 'mod',
+    label: 'Moderator',
+    colour: 'text-green-500',
   },
   {
-    id: "admin",
-    label: "Administrator",
-    colour: "text-orange-600",
+    id: 'admin',
+    label: 'Administrator',
+    colour: 'text-orange-600',
   },
 ];
 
 export type SafeUserData = Pick<
   User,
-  "username" | "avatarUrl" | "email" | "id" | "role"
+  'username' | 'avatarUrl' | 'email' | 'id' | 'role'
 >;
 
 export const getTotalNumberOfUsers = async () => {
@@ -31,7 +31,7 @@ export const getTotalNumberOfUsers = async () => {
 export const getMostRecentUser = async () => {
   const mostRecentUser = await prisma.user.findFirst({
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 

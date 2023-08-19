@@ -1,6 +1,6 @@
-import { Post, User } from "@prisma/client";
-import { PostComponent } from ".";
-import { Card, CardHeader } from "../common/card";
+import { Post, User } from '@prisma/client';
+import { PostComponent } from '.';
+import { Card, CardHeader } from '../common/card';
 
 type Props = {
   posts: (Post & {
@@ -16,7 +16,7 @@ export default function Posts({ posts, topicTitle }: Props) {
       <ul>
         {posts.map((post) => (
           <li
-            className="border-solid border-b-[16px] border-slate-600 last:border-b-0"
+            className="border-b-[16px] border-solid border-slate-600 last:border-b-0"
             key={post.id}
           >
             <PostComponent post={post} />

@@ -1,6 +1,6 @@
-"use client";
-import { useRef, useState } from "react";
-import { search } from "@/app/actions";
+'use client';
+import { useRef, useState } from 'react';
+import { search } from '@/app/actions';
 
 export default function HeaderSearchAndMenu() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -16,14 +16,14 @@ export default function HeaderSearchAndMenu() {
         <button
           data-collapse-toggle="navbar-search"
           type="button"
-          className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
           aria-controls="navbar-search"
           aria-expanded="false"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span className="sr-only">Open menu</span>
           <svg
-            className="w-6 h-6"
+            className="h-6 w-6"
             aria-hidden="true"
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -38,15 +38,15 @@ export default function HeaderSearchAndMenu() {
         </button>
       </div>
       <div
-        className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
-          menuOpen ? "block" : "hidden"
+        className={`w-full items-center justify-between md:order-1 md:flex md:w-auto ${
+          menuOpen ? 'block' : 'hidden'
         }`}
         id="navbar-search"
       >
         <div className="relative mt-3 md:hidden">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg
-              className="w-5 h-5 text-gray-500"
+              className="h-5 w-5 text-gray-500"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -65,7 +65,7 @@ export default function HeaderSearchAndMenu() {
               type="text"
               name="searchTerm"
               id="search-navbar"
-              className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Search..."
             />
           </form>

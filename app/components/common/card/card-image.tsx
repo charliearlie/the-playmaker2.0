@@ -1,5 +1,5 @@
-import { ImgHTMLAttributes } from "react";
-import Link from "next/link";
+import { ImgHTMLAttributes } from 'react';
+import Link from 'next/link';
 
 type CardImageProps = {
   to: string;

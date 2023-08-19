@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt";
-import * as jose from "jose";
-import { prisma } from "../prisma";
-import type { User, Prisma } from "@prisma/client";
-import { cookies } from "next/headers";
+import bcrypt from 'bcrypt';
+import * as jose from 'jose';
+import { prisma } from '../prisma';
+import type { User, Prisma } from '@prisma/client';
+import { cookies } from 'next/headers';
 
 export const register = async (user: Prisma.UserCreateInput) => {
   const exists = await prisma.user.count({ where: { email: user.email } });
@@ -44,7 +44,7 @@ export const createUser = async (user: Prisma.UserCreateInput) => {
 
 const createSession = async (user: User) => {
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
-  const alg = "HS256";
+  const alg = 'HS256';
   const jwt = await new jose.SignJWT({
     email: user.email,
     id: user.id,
@@ -52,9 +52,9 @@ const createSession = async (user: User) => {
   })
     .setProtectedHeader({ alg })
     .setIssuedAt()
-    .setIssuer("urn:example:issuer")
-    .setAudience("urn:example:audience")
-    .setExpirationTime("7d")
+    .setIssuer('urn:example:issuer')
+    .setAudience('urn:example:audience')
+    .setExpirationTime('7d')
     .sign(secret);
 
   if (!jwt) {
@@ -68,8 +68,8 @@ export const getSession = async (token: string) => {
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
 
   const { payload, protectedHeader } = await jose.jwtVerify(token, secret, {
-    issuer: "urn:example:issuer",
-    audience: "urn:example:audience",
+    issuer: 'urn:example:issuer',
+    audience: 'urn:example:audience',
   });
 
   return payload;

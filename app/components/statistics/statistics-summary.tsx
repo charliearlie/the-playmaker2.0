@@ -1,12 +1,12 @@
-import { Card, CardContent, CardHeader } from "../common/card";
-import CardSubHeader from "../common/card/card-subheader";
-import { getTotalNumberOfPosts } from "@/services/posts-service";
+import { Card, CardContent, CardHeader } from '../common/card';
+import CardSubHeader from '../common/card/card-subheader';
+import { getTotalNumberOfPosts } from '@/services/posts-service';
 import {
   getMostRecentUser,
   getTotalNumberOfUsers,
   getUserRoles,
-} from "@/services/users-service";
-import PlaymakerLink from "../common/link";
+} from '@/services/users-service';
+import PlaymakerLink from '../common/link';
 
 const getStatData = async () => {
   const [numberOfPosts, numberOfUsers, mostRecentUser] = await Promise.all([
@@ -50,7 +50,7 @@ export default async function StatisticsSummary() {
         <p>Our users have posted a total of {numberOfPosts} messages</p>
         <p>We have {numberOfUsers} registered users</p>
         <p>
-          The newest registered user is{" "}
+          The newest registered user is{' '}
           <PlaymakerLink href={`/user/${mostRecentUser?.username}`}>
             {mostRecentUser?.username}
           </PlaymakerLink>

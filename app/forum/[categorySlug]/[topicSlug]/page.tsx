@@ -1,12 +1,12 @@
-import { Suspense } from "react";
-import { getTopicFromSlug } from "@/services/topic-service";
-import { createPost, getTopicPosts } from "@/services/posts-service";
-import Posts from "@/app/components/posts/posts";
-import { Card, CardContent, CardHeader } from "@/app/components/common/card";
-import { Textarea } from "@/app/components/common/textarea";
-import Button from "@/app/components/common/button";
-import useUser from "@/lib/useUser";
-import { redirect, usePathname } from "next/navigation";
+import { Suspense } from 'react';
+import { getTopicFromSlug } from '@/services/topic-service';
+import { createPost, getTopicPosts } from '@/services/posts-service';
+import Posts from '@/app/components/posts/posts';
+import { Card, CardContent, CardHeader } from '@/app/components/common/card';
+import { Textarea } from '@/app/components/common/textarea';
+import Button from '@/app/components/common/button';
+import useUser from '@/lib/useUser';
+import { redirect, usePathname } from 'next/navigation';
 
 type Props = {
   params: { categorySlug: string; topicSlug: string };
@@ -20,10 +20,10 @@ export default async function TopicPage({ params, searchParams }: Props) {
   const page = searchParams.page ? Number(searchParams.page) : 1;
 
   const addPost = async (formData: FormData) => {
-    "use server";
-    const post = formData.get("post") || "";
+    'use server';
+    const post = formData.get('post') || '';
 
-    if (!userId || typeof post !== "string" || !topic) {
+    if (!userId || typeof post !== 'string' || !topic) {
       // todo: handle error elegantly
       return null;
     }
@@ -55,7 +55,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
                     Post text
                   </label>
                   <Textarea
-                    className="bg-slate-200 font-normal text-md h-48"
+                    className="text-md h-48 bg-slate-200 font-normal"
                     name="post"
                   />
                   <Button formAction={addPost} type="submit">

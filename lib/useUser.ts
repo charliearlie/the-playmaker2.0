@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
-import { getSession } from "./user-auth";
+import { cookies } from 'next/headers';
+import { getSession } from './user-auth';
 
 type User = {
   email?: string;
@@ -8,7 +8,7 @@ type User = {
   id?: string;
 };
 export default async function useUser() {
-  const cookie = cookies().get("user_session");
+  const cookie = cookies().get('user_session');
 
   if (cookie?.value) {
     const data = await getSession(cookie.value);

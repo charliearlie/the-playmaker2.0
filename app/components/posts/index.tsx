@@ -1,1 +1,1 @@
-export { default as PostComponent } from "./post";
+export { default as PostComponent } from './post';

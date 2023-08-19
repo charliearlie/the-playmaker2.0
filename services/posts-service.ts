@@ -1,6 +1,6 @@
-import { prisma } from "@/prisma";
-import { Topic } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { prisma } from '@/prisma';
+import { Topic } from '@prisma/client';
+import { redirect } from 'next/navigation';
 
 export const getTotalNumberOfPosts = async () => {
   return await prisma.post.count();

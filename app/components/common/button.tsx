@@ -1,13 +1,13 @@
-import type { HTMLProps, ReactNode } from "react";
-import classNames from "classnames";
-import Link from "next/link";
+import type { HTMLProps, ReactNode } from 'react';
+import classNames from 'classnames';
+import Link from 'next/link';
 
 type ButtonProps = {
   asLink?: boolean;
   children: ReactNode;
   href?: string;
-  type?: "button" | "submit" | "reset" | undefined; // No idea why HTMLProps<HTMLButtonElement> doesn't cover this correctly
-  variant?: "primary" | "secondary" | "neutral" | "danger" | "ghost";
+  type?: 'button' | 'submit' | 'reset' | undefined; // No idea why HTMLProps<HTMLButtonElement> doesn't cover this correctly
+  variant?: 'primary' | 'secondary' | 'neutral' | 'danger' | 'ghost';
 };
 type Props = ButtonProps & HTMLProps<HTMLButtonElement>;
 
@@ -16,20 +16,20 @@ export default function Button({
   children,
   className,
   href,
-  type = "button",
-  variant = "primary",
+  type = 'button',
+  variant = 'primary',
   ...props
 }: Props) {
   const variantClass = classNames(
-    "button",
+    'button',
     {
-      "button-primary": variant === "primary",
-      "button-secondary": variant === "secondary",
-      "button-neutral": variant === "neutral",
-      "button-danger": variant === "danger",
-      "button-ghost": variant === "ghost",
+      'button-primary': variant === 'primary',
+      'button-secondary': variant === 'secondary',
+      'button-neutral': variant === 'neutral',
+      'button-danger': variant === 'danger',
+      'button-ghost': variant === 'ghost',
     },
-    className
+    className,
   );
 
   if (asLink && href) {

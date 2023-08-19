@@ -79,7 +79,7 @@
 
 @layer components {
   .button {
-    @apply rounded-sm px-3 py-2 text-lg font-semibold text-white cursor-pointer;
+    @apply cursor-pointer rounded-sm px-3 py-2 text-lg font-semibold text-white;
   }
 
   .button-primary {
@@ -99,6 +99,6 @@
   }
 
   .button-ghost {
-    @apply outline outline-1 p-2;
+    @apply p-2 outline outline-1;
   }
 }

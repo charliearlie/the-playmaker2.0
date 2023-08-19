@@ -1,16 +1,16 @@
-import { getCategoryFromSlug } from "@/services/category-service";
-import Button from "@/app/components/common/button";
+import { getCategoryFromSlug } from '@/services/category-service';
+import Button from '@/app/components/common/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardSubheader,
-} from "@/app/components/common/card";
-import AdvancedInput from "@/app/components/input/advanced-input";
-import { Textarea } from "@/app/components/common/textarea";
-import { redirect } from "next/navigation";
-import { createTopicAndInitialpost } from "@/services/topic-service";
-import useUser from "@/lib/useUser";
+} from '@/app/components/common/card';
+import AdvancedInput from '@/app/components/input/advanced-input';
+import { Textarea } from '@/app/components/common/textarea';
+import { redirect } from 'next/navigation';
+import { createTopicAndInitialpost } from '@/services/topic-service';
+import useUser from '@/lib/useUser';
 
 type Props = {
   params: { categorySlug: string };
@@ -20,21 +20,21 @@ export default async function ForumPage({ params }: Props) {
   const user = await useUser();
   const { categorySlug } = params;
   const createTopic = async (formData: FormData) => {
-    "use server";
-    const title = formData.get("title") || "";
-    const post = formData.get("post") || "";
+    'use server';
+    const title = formData.get('title') || '';
+    const post = formData.get('post') || '';
     console.log(
-      "title",
-      "post",
-      "user.id",
-      "categorySlug",
+      'title',
+      'post',
+      'user.id',
+      'categorySlug',
       title,
       post,
       user.id,
-      categorySlug
+      categorySlug,
     );
 
-    if (!user.id || typeof title !== "string" || typeof post !== "string") {
+    if (!user.id || typeof title !== 'string' || typeof post !== 'string') {
       return null;
     }
 
@@ -72,10 +72,10 @@ export default async function ForumPage({ params }: Props) {
               Post text
             </label>
             <Textarea
-              className="bg-slate-200 font-normal text-md h-48"
+              className="text-md h-48 bg-slate-200 font-normal"
               name="post"
             />
-            <div className="flex justify-end py-2 gap-2">
+            <div className="flex justify-end gap-2 py-2">
               <Button
                 className="w-32"
                 variant="neutral"

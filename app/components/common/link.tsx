@@ -1,5 +1,5 @@
-import Link, { LinkProps } from "next/link";
-import { PropsWithChildren } from "react";
+import Link, { LinkProps } from 'next/link';
+import { PropsWithChildren } from 'react';
 
 type Props = {
   className?: string;
@@ -12,7 +12,7 @@ export default function PlaymakerLink({
 }: PropsWithChildren<Props>) {
   return (
     <Link
-      className={`underline font-semibold text-slate-700 hover:text-slate-400 ${className}`}
+      className={`font-semibold text-slate-700 underline hover:text-slate-400 ${className}`}
       {...props}
     >
       {children}

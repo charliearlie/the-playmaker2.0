@@ -1,9 +1,9 @@
-import type { ChangeEvent} from "react";
-import { useState } from "react";
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 
 enum UPLOAD_PRESET_ENUM {
-  bidhubAvatar = "bidhub_avatar",
-  bidhubItem = "bidhub_item",
+  bidhubAvatar = 'bidhub_avatar',
+  bidhubItem = 'bidhub_item',
 }
 
 type ImageUploadProps = {
@@ -28,15 +28,15 @@ export default function ImageUpload({
 
     if (files) {
       const data = new FormData();
-      data.append("file", files[0]);
-      data.append("upload_preset", uploadPreset);
+      data.append('file', files[0]);
+      data.append('upload_preset', uploadPreset);
 
       const res = await fetch(
-        "https://api.cloudinary.com/v1_1/bidhub/image/upload",
+        'https://api.cloudinary.com/v1_1/bidhub/image/upload',
         {
-          method: "POST",
+          method: 'POST',
           body: data,
-        }
+        },
       );
 
       const file = await res.json();

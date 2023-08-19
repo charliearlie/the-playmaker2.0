@@ -1,7 +1,7 @@
-import { searchTopics } from "@/services/topic-service";
-import { Suspense } from "react";
-import TopicsList from "../components/topic/topics-list";
-import { Breadcrumbs } from "../components/breadcrumbs";
+import { searchTopics } from '@/services/topic-service';
+import { Suspense } from 'react';
+import TopicsList from '../components/topic/topics-list';
+import { Breadcrumbs } from '../components/breadcrumbs';
 
 type Props = {
   searchParams: { searchTerm: string };
