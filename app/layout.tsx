@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from './components/header';
 import { Card, CardContent } from './components/common/card';
 import './globals.css';
+import { Toaster } from './components/common/toast/toaster';
 
 export const metadata = {
   title: 'The-Playmaker',
@@ -22,6 +23,7 @@ export default function RootLayout({
             You are not signed in. Please log in or register
           </span>
         </div>
+        <Toaster />
         <div className="mx-2 sm:px-4 xl:px-2">
           <Card>
             <CardContent>
