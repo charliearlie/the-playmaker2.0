@@ -8,16 +8,12 @@ type User = {
   id?: string;
 };
 export default async function useUser() {
-  const cookie = cookies().get('user_session');
-
-  if (cookie?.value) {
-    const data = await getSession(cookie.value);
-    if (data) {
-      return {
-        isLoggedIn: true,
-        ...data,
-      } as User;
-    }
+  const data = await getSession();
+  if (data) {
+    return {
+      isLoggedIn: true,
+      ...data,
+    } as User;
   }
 
   return { isLoggedIn: false };

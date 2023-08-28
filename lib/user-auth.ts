@@ -3,6 +3,7 @@ import * as jose from 'jose';
 import { prisma } from '../prisma';
 import type { User, Prisma } from '@prisma/client';
 import { cookies } from 'next/headers';
+import { NextRequest } from 'next/server';
 
 export const register = async (user: Prisma.UserCreateInput) => {
   const exists = await prisma.user.count({ where: { email: user.email } });
@@ -64,13 +65,32 @@ const createSession = async (user: User) => {
   return { success: true, token: jwt };
 };
 
-export const getSession = async (token: string) => {
+type UserType = {
+  email?: string;
+  username?: string;
+  id?: string;
+};
+
+export const getSession = async (request?: NextRequest) => {
+  let cookie;
+  if (request) {
+    cookie = request.cookies.get('user_session');
+  } else {
+    cookie = cookies().get('user_session');
+    console.log('cookie.value', cookie?.value);
+  }
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
 
-  const { payload, protectedHeader } = await jose.jwtVerify(token, secret, {
-    issuer: 'urn:example:issuer',
-    audience: 'urn:example:audience',
-  });
-
-  return payload;
+  if (cookie?.value) {
+    const { payload, protectedHeader } = await jose.jwtVerify(
+      cookie.value,
+      secret,
+      {
+        issuer: 'urn:example:issuer',
+        audience: 'urn:example:audience',
+      },
+    );
+    return payload as UserType;
+  }
+  return null;
 };
