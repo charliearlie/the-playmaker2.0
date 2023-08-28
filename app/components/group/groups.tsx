@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import LatestPost from '../posts/latest-post';
-
 import { getGroupData } from '@/services/groups-service';
+
+import LatestPost from '../posts/latest-post';
 import { Card, CardContent, CardHeader } from '../common/card';
 
 export default async function Groups() {

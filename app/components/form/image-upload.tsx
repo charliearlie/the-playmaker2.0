@@ -2,8 +2,7 @@ import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
 enum UPLOAD_PRESET_ENUM {
-  bidhubAvatar = 'bidhub_avatar',
-  bidhubItem = 'bidhub_item',
+  pmUserAvatar = 'playmaker_user_avatar',
 }
 
 type ImageUploadProps = {
@@ -19,7 +18,7 @@ type ImageUploadState = {
 };
 
 export default function ImageUpload({
-  uploadPreset = UPLOAD_PRESET_ENUM.bidhubItem,
+  uploadPreset = UPLOAD_PRESET_ENUM.pmUserAvatar,
   ...props
 }: Props) {
   const [imageState, setImageState] = useState<ImageUploadState>();

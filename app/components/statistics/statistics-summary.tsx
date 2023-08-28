@@ -1,5 +1,4 @@
-import { Card, CardContent, CardHeader } from '../common/card';
-import CardSubHeader from '../common/card/card-subheader';
+import { Card, CardContent, CardHeader, CardSubheader } from '../common/card';
 import { getTotalNumberOfPosts } from '@/services/posts-service';
 import {
   getMostRecentUser,
@@ -28,9 +27,9 @@ export default async function StatisticsSummary() {
   return (
     <Card>
       <CardHeader canMinimise>Site summary</CardHeader>
-      <CardSubHeader>
+      <CardSubheader>
         <h3>Who is online</h3>
-      </CardSubHeader>
+      </CardSubheader>
       <CardContent>
         <p>Here we will display the users with active sessions</p>
         <p className="flex gap-1">
@@ -43,9 +42,9 @@ export default async function StatisticsSummary() {
           ]
         </p>
       </CardContent>
-      <CardSubHeader>
+      <CardSubheader>
         <h3>Statistics</h3>
-      </CardSubHeader>
+      </CardSubheader>
       <CardContent>
         <p>Our users have posted a total of {numberOfPosts} messages</p>
         <p>We have {numberOfUsers} registered users</p>

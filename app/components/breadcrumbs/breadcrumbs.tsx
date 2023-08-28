@@ -1,7 +1,8 @@
 'use client';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { ChevronRightIcon, HomeIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { ChevronRightIcon, HomeIcon } from 'lucide-react';
+
 import { slugMap } from './slug-map';
 
 type Props = {

@@ -1,7 +1,7 @@
-import PlaymakerLink from '../common/link';
-import { ArrowRightFromLine } from 'lucide-react';
 import dayjs from 'dayjs';
 import { Post, User } from '@prisma/client';
+import { ArrowRightFromLine } from 'lucide-react';
+import PlaymakerLink from '../common/link';
 
 type Props = {
   hideTitle?: boolean;

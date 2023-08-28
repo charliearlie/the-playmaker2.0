@@ -1,5 +1,5 @@
 import { Post, User } from '@prisma/client';
-import { PostComponent } from '.';
+import PostComponent from './post';
 import { Card, CardHeader } from '../common/card';
 
 type Props = {
