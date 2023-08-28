@@ -1,6 +1,4 @@
 import { prisma } from '@/prisma';
-import { Topic } from '@prisma/client';
-import { redirect } from 'next/navigation';
 
 export const getTotalNumberOfPosts = async () => {
   return await prisma.post.count();
@@ -47,3 +45,12 @@ export const createPost = async ({
 
   return post;
 };
+
+export const removePost = async (id: string) => {
+  const deletedPost = await prisma.post.delete({ where: { id } });
+
+  return deletedPost ? true : false;
+};
+
+export const getPost = async (id: string) =>
+  await prisma.post.findUnique({ where: { id } });
