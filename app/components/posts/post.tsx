@@ -1,11 +1,17 @@
+'use client';
 import { Post, User } from '@prisma/client';
-import { TextQuote } from 'lucide-react';
+import { DeleteIcon, TextQuote } from 'lucide-react';
+
 import { formatDateToUsersPreference, getYear } from '@/lib/dates';
-import { CardSubheader } from '../common/card';
-import RoleBadge from '../user/role-badge';
-import CardFooter from '../common/card/card-footer';
+import { useToast } from '@/app/components/common/toast/use-toast';
+
 import Button from '../common/button';
+import { CardFooter, CardSubheader } from '../common/card';
+
+import RoleBadge from '../user/role-badge';
 import PostMarkdown from './post-markdown';
+import { handleDelete } from '@/app/actions/post-actions';
+import { ToastProps } from '../common/toast/toast';
 
 type Props = {
   post: Post & {
@@ -13,7 +19,27 @@ type Props = {
   };
 };
 
+const buildToastProps = (success: boolean) => {
+  const title = success ? 'Post deleted successfully' : 'Something went wrong';
+  const description = success
+    ? 'Our code works'
+    : "You're probably not logged in";
+  const variant = success ? 'success' : 'destructive';
+
+  return { title, description, variant, duration: 5000 } as ToastProps;
+};
+
 export default function Post({ post }: Props) {
+  const { toast } = useToast();
+
+  async function deleteButtonClick() {
+    const postDeletedSuccessfully = await handleDelete(post);
+    const { dismiss } = toast(buildToastProps(postDeletedSuccessfully));
+    setTimeout(() => {
+      dismiss();
+    }, 5000);
+  }
+
   return (
     <div id={post.id}>
       <CardSubheader>
@@ -40,14 +66,28 @@ export default function Post({ post }: Props) {
           <PostMarkdown content={post.content} />
         </div>
       </div>
-      <CardFooter className="flex justify-end">
+      <CardFooter className="flex justify-end gap-1">
         <Button
           className="flex items-center gap-1 py-1 font-normal"
+          asLink
+          href={`/create-post/${post.id}`}
           variant="neutral"
         >
           <TextQuote />
           Quote
         </Button>
+        <form action={deleteButtonClick}>
+          {true && (
+            <Button
+              className="flex items-center gap-1 py-1 font-normal"
+              variant="danger"
+              type="submit"
+            >
+              <DeleteIcon />
+              Delete
+            </Button>
+          )}
+        </form>
       </CardFooter>
     </div>
   );
