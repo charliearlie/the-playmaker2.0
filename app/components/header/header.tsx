@@ -9,7 +9,7 @@ export default function Header() {
       <div className="mx-1 flex flex-wrap items-center justify-between p-2 md:mx-8">
         <Link href="/" className="flex items-center">
           <Image
-            className="-mt-2 h-10 w-40"
+            className="h-10 w-40"
             src="/playma10.png"
             alt="The Playmaker logo"
             width={180}
