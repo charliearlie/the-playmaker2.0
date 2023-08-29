@@ -1,57 +1,61 @@
-import useUser from '@/lib/useUser';
-import { Card, CardContent, CardHeader } from '../common/card';
-import { Textarea } from '../common/textarea';
-import Button from '../common/button';
-import PlaymakerLink from '../common/link';
+'use client';
+import { useContext, useRef } from 'react';
 import { Topic } from '@prisma/client';
-import { createPost } from '@/services/posts-service';
-import { redirect } from 'next/navigation';
+import Button from '@/app/components/common/button';
+import { Card, CardContent, CardHeader } from '@/app/components/common/card';
+import PlaymakerLink from '@/app/components/common/link';
+import { Textarea } from '@/app/components/common/textarea';
+import { useToast } from '@/app/components/common/toast/use-toast';
+import { handlePostCreation } from '@/app/actions/post-actions';
+import { UserContext } from '@/lib/contexts/user-context';
+import { ToastProps } from '../common/toast/toast';
+
+const buildToastProps = (success: boolean) => {
+  const title = success ? 'Reply added successfully' : 'Something went wrong';
+  const description = success
+    ? 'You should now be able to see your post'
+    : "You're probably not logged in";
+  const variant = success ? 'success' : 'destructive';
+
+  return { title, description, variant } as ToastProps;
+};
 
 type Props = {
   categorySlug: string;
   topic: Topic;
 };
 
-export default async function CreatePost({ categorySlug, topic }: Props) {
-  const { id: userId, isLoggedIn } = await useUser();
-  const addPost = async (formData: FormData) => {
-    'use server';
-    const post = formData.get('post') || '';
+export default function CreatePost({ categorySlug, topic }: Props) {
+  const user = useContext(UserContext);
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const { toast } = useToast();
 
-    if (!userId || typeof post !== 'string' || !topic) {
-      // todo: handle error elegantly
-      return null;
+  async function submitPost(formData: FormData) {
+    if (ref.current) {
+      ref.current.value = '';
     }
-
-    const newPost = await createPost({
-      postText: post,
-      topicId: topic.id,
-      userId: userId,
-    });
-
-    if (newPost) {
-      redirect(`forum/${categorySlug}/${topic.slug}#${newPost.id}`);
-    }
-  };
-
+    const post = handlePostCreation(formData, topic, categorySlug);
+    toast(buildToastProps(!!post));
+  }
   return (
     <Card>
-      {isLoggedIn ? (
+      {user?.isLoggedIn ? (
         <>
           <CardHeader>Add reply</CardHeader>
           <CardContent>
-            <form>
+            <form action={submitPost}>
               <label className="font-semibold" htmlFor="post">
                 Post text
               </label>
               <Textarea
                 className="text-md h-48 bg-slate-200 font-normal"
                 name="post"
+                ref={ref}
               />
-              <div className="flex justify-center py-1">
+              <div className="flex justify-center py-2">
                 <Button
-                  className="min-w-[120px]"
-                  formAction={addPost}
+                  className="min-w-[200px]"
+                  variant="neutral"
                   type="submit"
                 >
                   Add reply

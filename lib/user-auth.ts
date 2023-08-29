@@ -65,9 +65,10 @@ const createSession = async (user: User) => {
   return { success: true, token: jwt };
 };
 
-type UserType = {
+export type UserResponse = {
   email?: string;
   username?: string;
+  isLoggedIn: boolean;
   id?: string;
 };
 
@@ -90,7 +91,16 @@ export const getSession = async (request?: NextRequest) => {
         audience: 'urn:example:audience',
       },
     );
-    return payload as UserType;
+    return { ...payload, isLoggedIn: true } as UserResponse;
   }
   return null;
 };
+
+export async function useUser() {
+  const data = await getSession();
+  if (data) {
+    return data as UserResponse;
+  }
+
+  return { isLoggedIn: false };
+}

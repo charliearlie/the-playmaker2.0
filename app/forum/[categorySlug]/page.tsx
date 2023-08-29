@@ -26,7 +26,6 @@ export default async function ForumPage({ params, searchParams }: Props) {
             <Button
               className="flex items-center gap-1"
               variant="primary"
-              asLink
               href={`/create-thread/${categorySlug}`}
             >
               Create thread <PlusIcon />

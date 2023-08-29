@@ -12,6 +12,8 @@ import RoleBadge from '../user/role-badge';
 import PostMarkdown from './post-markdown';
 import { handleDelete } from '@/app/actions/post-actions';
 import { ToastProps } from '../common/toast/toast';
+import DeletePostDialog from './delete-post-dialog';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   post: Post & {
@@ -31,6 +33,7 @@ const buildToastProps = (success: boolean) => {
 
 export default function Post({ post }: Props) {
   const { toast } = useToast();
+  const router = useRouter();
 
   async function deleteButtonClick() {
     const postDeletedSuccessfully = await handleDelete(post);
@@ -38,6 +41,7 @@ export default function Post({ post }: Props) {
     setTimeout(() => {
       dismiss();
     }, 5000);
+    router.refresh();
   }
 
   return (
@@ -68,26 +72,14 @@ export default function Post({ post }: Props) {
       </div>
       <CardFooter className="flex justify-end gap-1">
         <Button
-          className="flex items-center gap-1 py-1 font-normal"
-          asLink
+          className="flex items-center gap-1"
           href={`/create-post/${post.id}`}
-          variant="neutral"
+          variant="link-button"
         >
           <TextQuote />
           Quote
         </Button>
-        <form action={deleteButtonClick}>
-          {true && (
-            <Button
-              className="flex items-center gap-1 py-1 font-normal"
-              variant="danger"
-              type="submit"
-            >
-              <DeleteIcon />
-              Delete
-            </Button>
-          )}
-        </form>
+        <DeletePostDialog action={deleteButtonClick} />
       </CardFooter>
     </div>
   );

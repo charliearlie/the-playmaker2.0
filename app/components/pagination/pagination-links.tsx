@@ -74,9 +74,8 @@ export default function PaginationLinks({
         return (
           <Button
             key={page}
-            asLink
+            variant="link"
             href={`${pathName}?page=${page}`}
-            variant="neutral"
             className={
               isCurrentPage
                 ? 'cursor-default bg-slate-800 outline outline-blue-300 hover:bg-slate-800'

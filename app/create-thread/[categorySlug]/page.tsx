@@ -10,7 +10,7 @@ import AdvancedInput from '@/app/components/input/advanced-input';
 import { Textarea } from '@/app/components/common/textarea';
 import { redirect } from 'next/navigation';
 import { createTopicAndInitialpost } from '@/services/topic-service';
-import useUser from '@/lib/useUser';
+import { useUser } from '@/lib/user-auth';
 
 type Props = {
   params: { categorySlug: string };

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import useUser from '@/lib/useUser';
+import { useUser } from '@/lib/user-auth';
 import Groups from './components/group/groups';
 import StatisticsSummary from './components/statistics/statistics-summary';
 
