@@ -23,16 +23,6 @@ export default async function ForumPage({ params }: Props) {
     'use server';
     const title = formData.get('title') || '';
     const post = formData.get('post') || '';
-    console.log(
-      'title',
-      'post',
-      'user.id',
-      'categorySlug',
-      title,
-      post,
-      user.id,
-      categorySlug,
-    );
 
     if (!user.id || typeof title !== 'string' || typeof post !== 'string') {
       return null;

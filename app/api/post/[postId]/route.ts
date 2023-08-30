@@ -12,7 +12,6 @@ type DeleteParams = {
 
 export async function DELETE(request: NextRequest, { params }: DeleteParams) {
   const session = await getSession();
-  console.log('session', session, 'request', request);
   const post = await getPost(params.postId);
   const canUserDeletePost = session?.id === post?.userId;
 

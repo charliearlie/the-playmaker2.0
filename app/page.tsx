@@ -6,7 +6,6 @@ import StatisticsSummary from './components/statistics/statistics-summary';
 export default async function Home() {
   const user = await useServerUser();
 
-  console.log('user', user);
   return (
     <Suspense fallback={<h3>Loading...</h3>}>
       <div className="w-full">

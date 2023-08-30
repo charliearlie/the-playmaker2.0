@@ -14,9 +14,6 @@ export const handlePostCreation = async (
   const post = formData.get('post') || '';
   const session = await getSession();
 
-  console.log('session', session);
-  console.log('post', post);
-
   if (!session?.id || typeof post !== 'string' || !topic) {
     // todo: handle error elegantly
     return null;
