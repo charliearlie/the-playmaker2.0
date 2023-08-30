@@ -36,7 +36,7 @@ export default async function RootLayout({
                 <div className="flex justify-center">Announcement banner</div>
               </CardContent>
             </Card>
-            <main className="flex h-screen w-full flex-col flex-wrap md:content-center">
+            <main className="flex h-screen w-full max-w-[1600px] mx-auto flex-col flex-wrap md:content-center">
               {children}
             </main>
           </div>

@@ -40,7 +40,9 @@ export default function DeletePostDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>
+            <Button variant="neutral">Cancel</Button>
+          </AlertDialogCancel>
           <AlertDialogAction asChild>
             <Button onClick={action} variant="danger">
               Confirm

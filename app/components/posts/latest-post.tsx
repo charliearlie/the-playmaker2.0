@@ -21,7 +21,7 @@ export default function LatestPost({
   }
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start text-start">
       {!hideTitle && <PlaymakerLink href="/">{topicTitle}</PlaymakerLink>}
       <p className="text-sm">
         {dayjs(latestPost?.createdAt).format('ddd DD MMM, YYYY HH:mm')}
