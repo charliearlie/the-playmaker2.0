@@ -78,7 +78,6 @@ export const getSession = async (request?: NextRequest) => {
     cookie = request.cookies.get('user_session');
   } else {
     cookie = cookies().get('user_session');
-    console.log('cookie.value', cookie?.value);
   }
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
 
@@ -96,7 +95,7 @@ export const getSession = async (request?: NextRequest) => {
   return null;
 };
 
-export async function useUser() {
+export async function useServerUser() {
   const data = await getSession();
   if (data) {
     return data as UserResponse;

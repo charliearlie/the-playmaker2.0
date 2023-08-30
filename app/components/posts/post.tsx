@@ -1,6 +1,7 @@
 'use client';
 import { Post, User } from '@prisma/client';
-import { DeleteIcon, TextQuote } from 'lucide-react';
+import { EditIcon, TextQuote } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { formatDateToUsersPreference, getYear } from '@/lib/dates';
 import { useToast } from '@/app/components/common/toast/use-toast';
@@ -13,7 +14,7 @@ import PostMarkdown from './post-markdown';
 import { handleDelete } from '@/app/actions/post-actions';
 import { ToastProps } from '../common/toast/toast';
 import DeletePostDialog from './delete-post-dialog';
-import { useRouter } from 'next/navigation';
+import { useClientUser } from '@/lib/contexts/user-context';
 
 type Props = {
   post: Post & {
@@ -34,6 +35,9 @@ const buildToastProps = (success: boolean) => {
 export default function Post({ post }: Props) {
   const { toast } = useToast();
   const router = useRouter();
+  const { user } = useClientUser();
+
+  const isCurrentUserTheAuthor = user?.id === post.userId;
 
   async function deleteButtonClick() {
     const postDeletedSuccessfully = await handleDelete(post);
@@ -79,7 +83,15 @@ export default function Post({ post }: Props) {
           <TextQuote />
           Quote
         </Button>
-        <DeletePostDialog action={deleteButtonClick} />
+        {isCurrentUserTheAuthor && (
+          <Button className="flex items-center gap-1" variant="primary">
+            <EditIcon />
+            Edit
+          </Button>
+        )}
+        {isCurrentUserTheAuthor && (
+          <DeletePostDialog action={deleteButtonClick} />
+        )}
       </CardFooter>
     </div>
   );

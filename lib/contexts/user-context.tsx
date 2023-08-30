@@ -1,17 +1,23 @@
 'use client';
-import { PropsWithChildren, createContext } from 'react';
+import { PropsWithChildren, createContext, useContext } from 'react';
 import type { UserResponse } from '../user-auth';
 
-export const UserContext = createContext<UserResponse | null>(null);
+type UserData = {
+  user: UserResponse | null;
+};
+
+export const UserContext = createContext<UserData>({ user: null });
 
 export default function UserProvider({
   children,
-  isLoggedIn,
-  username,
-}: PropsWithChildren<UserResponse>) {
+  user,
+}: PropsWithChildren<UserData>) {
   return (
-    <UserContext.Provider value={{ isLoggedIn, username }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 }
+
+export const useClientUser = () => {
+  const user = useContext(UserContext);
+  return user;
+};

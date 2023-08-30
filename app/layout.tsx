@@ -4,7 +4,7 @@ import { Card, CardContent } from './components/common/card';
 import './globals.css';
 import { Toaster } from './components/common/toast/toaster';
 import UserProvider from '@/lib/contexts/user-context';
-import { useUser } from '@/lib/user-auth';
+import { useServerUser } from '@/lib/user-auth';
 
 export const metadata = {
   title: 'The-Playmaker',
@@ -16,11 +16,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await useUser();
+  const user = await useServerUser();
   return (
     <html>
       <body>
-        <UserProvider username={user?.username} isLoggedIn={user.isLoggedIn}>
+        <UserProvider user={user}>
           <Header />
           {!user.isLoggedIn && (
             <div className="flex justify-center bg-slate-50">

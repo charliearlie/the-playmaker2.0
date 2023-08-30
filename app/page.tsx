@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
-import { useUser } from '@/lib/user-auth';
+import { useServerUser } from '@/lib/user-auth';
 import Groups from './components/group/groups';
 import StatisticsSummary from './components/statistics/statistics-summary';
 
 export default async function Home() {
-  const user = await useUser();
+  const user = await useServerUser();
 
   console.log('user', user);
   return (

@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { Topic } from '@prisma/client';
 import Button from '@/app/components/common/button';
 import { Card, CardContent, CardHeader } from '@/app/components/common/card';
@@ -7,7 +7,7 @@ import PlaymakerLink from '@/app/components/common/link';
 import { Textarea } from '@/app/components/common/textarea';
 import { useToast } from '@/app/components/common/toast/use-toast';
 import { handlePostCreation } from '@/app/actions/post-actions';
-import { UserContext } from '@/lib/contexts/user-context';
+import { useClientUser } from '@/lib/contexts/user-context';
 import { ToastProps } from '../common/toast/toast';
 
 const buildToastProps = (success: boolean) => {
@@ -26,9 +26,9 @@ type Props = {
 };
 
 export default function CreatePost({ categorySlug, topic }: Props) {
-  const user = useContext(UserContext);
-  const ref = useRef<HTMLTextAreaElement>(null);
+  const { user } = useClientUser();
   const { toast } = useToast();
+  const ref = useRef<HTMLTextAreaElement>(null);
 
   async function submitPost(formData: FormData) {
     if (ref.current) {

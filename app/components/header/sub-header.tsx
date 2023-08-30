@@ -1,7 +1,10 @@
+'use client';
 import { search } from '@/app/actions';
+import { useClientUser } from '@/lib/contexts/user-context';
 import Link from 'next/link';
 
 export default function SubHeader() {
+  const { user } = useClientUser();
   return (
     <div className="flex w-full justify-between">
       <nav className="flex gap-1">

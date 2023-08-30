@@ -10,14 +10,14 @@ import AdvancedInput from '@/app/components/input/advanced-input';
 import { Textarea } from '@/app/components/common/textarea';
 import { redirect } from 'next/navigation';
 import { createTopicAndInitialpost } from '@/services/topic-service';
-import { useUser } from '@/lib/user-auth';
+import { useServerUser } from '@/lib/user-auth';
 
 type Props = {
   params: { categorySlug: string };
 };
 
 export default async function ForumPage({ params }: Props) {
-  const user = await useUser();
+  const user = await useServerUser();
   const { categorySlug } = params;
   const createTopic = async (formData: FormData) => {
     'use server';
