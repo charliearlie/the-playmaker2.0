@@ -1,12 +1,11 @@
-import { Card, CardContent, CardHeader } from "../common/card";
-import CardSubHeader from "../common/card/card-subheader";
-import { getTotalNumberOfPosts } from "@/services/posts-service";
+import { Card, CardContent, CardHeader, CardSubheader } from '../common/card';
+import { getTotalNumberOfPosts } from '@/services/posts-service';
 import {
   getMostRecentUser,
   getTotalNumberOfUsers,
   getUserRoles,
-} from "@/services/users-service";
-import PlaymakerLink from "../common/link";
+} from '@/services/users-service';
+import PlaymakerLink from '../common/link';
 
 const getStatData = async () => {
   const [numberOfPosts, numberOfUsers, mostRecentUser] = await Promise.all([
@@ -28,9 +27,9 @@ export default async function StatisticsSummary() {
   return (
     <Card>
       <CardHeader canMinimise>Site summary</CardHeader>
-      <CardSubHeader>
+      <CardSubheader>
         <h3>Who is online</h3>
-      </CardSubHeader>
+      </CardSubheader>
       <CardContent>
         <p>Here we will display the users with active sessions</p>
         <p className="flex gap-1">
@@ -43,14 +42,14 @@ export default async function StatisticsSummary() {
           ]
         </p>
       </CardContent>
-      <CardSubHeader>
+      <CardSubheader>
         <h3>Statistics</h3>
-      </CardSubHeader>
+      </CardSubheader>
       <CardContent>
         <p>Our users have posted a total of {numberOfPosts} messages</p>
         <p>We have {numberOfUsers} registered users</p>
         <p>
-          The newest registered user is{" "}
+          The newest registered user is{' '}
           <PlaymakerLink href={`/user/${mostRecentUser?.username}`}>
             {mostRecentUser?.username}
           </PlaymakerLink>

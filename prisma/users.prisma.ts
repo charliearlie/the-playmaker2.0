@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from '@/prisma';
 
 export const getTotalNumberOfUsers = async () => {
   return await prisma.user.count();
@@ -7,7 +7,7 @@ export const getTotalNumberOfUsers = async () => {
 export const getMostRecentUser = async () => {
   const mostRecentUser = await prisma.user.findFirst({
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 

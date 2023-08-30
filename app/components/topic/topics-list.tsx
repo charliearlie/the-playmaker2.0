@@ -1,9 +1,9 @@
-import Link from "next/link";
-import LatestPost from "../posts/latest-post";
-import { Card, CardContent, CardHeader } from "../common/card";
-import { Category } from "@prisma/client";
-import { EnrichedTopic } from "@/services/topic-service";
-import PaginationLinks from "../pagination/pagination-links";
+import Link from 'next/link';
+import LatestPost from '../posts/latest-post';
+import { Card, CardContent, CardHeader } from '../common/card';
+import { Category } from '@prisma/client';
+import { EnrichedTopic } from '@/services/topic-service';
+import PaginationLinks from '../pagination/pagination-links';
 
 type Props = {
   category?: Category;
@@ -27,11 +27,11 @@ export default async function TopicsList({
           <table className="w-full table-fixed">
             <thead>
               <tr className="bg-slate-400">
-                <th className="w-6/12 md:w-5/12 text-start p-2">Topic</th>
-                <th className="p-2 w-1/12">Replies</th>
-                <th className="p-2 w-2/12">Author</th>
-                <th className="hidden md:table-cell p-2 w-1/12">Views</th>
-                <th className="hidden lg:table-cell md:w-2/12 p-2">
+                <th className="w-6/12 p-2 text-start md:w-5/12">Topic</th>
+                <th className="w-1/12 p-2">Replies</th>
+                <th className="w-2/12 p-2">Author</th>
+                <th className="hidden w-1/12 p-2 md:table-cell">Views</th>
+                <th className="hidden p-2 md:w-2/12 lg:table-cell">
                   Latest post
                 </th>
               </tr>
@@ -40,12 +40,12 @@ export default async function TopicsList({
               {topics.map((topic) => (
                 <tr
                   key={topic.id}
-                  className="border-solid border-b-2 border-slate-200 last:border-b-0"
+                  className="border-b-2 border-solid border-slate-200 last:border-b-0"
                 >
-                  <td className="w-6/12 md:w-4/12 p-2 bg-slate-50 rounded-sm align-top">
+                  <td className="w-6/12 rounded-sm bg-slate-50 p-2 align-top md:w-4/12">
                     <div className="flex flex-col justify-start">
                       <Link
-                        className="text-lg underline text-slate-700 hover:text-slate-400"
+                        className="text-lg text-slate-700 underline hover:text-slate-400"
                         href={`/forum/${topic.categorySlug}/${topic.slug}`}
                       >
                         {topic.title}
@@ -53,14 +53,14 @@ export default async function TopicsList({
                       Page buttons go here
                     </div>
                   </td>
-                  <td className="p-2 text-center w-1/12">{topic.postCount}</td>
-                  <td className="p-2 text-center bg-slate-50">
+                  <td className="w-1/12 p-2 text-center">{topic.postCount}</td>
+                  <td className="bg-slate-50 p-2 text-center">
                     {topic.user.username}
                   </td>
-                  <td className="hidden md:table-cell p-2 text-center md:w-1/12">
+                  <td className="hidden p-2 text-center md:table-cell md:w-1/12">
                     {topic.views}
                   </td>
-                  <td className="hidden lg:table-cell p-2 text-center bg-slate-50">
+                  <td className="hidden bg-slate-50 p-2 text-center lg:table-cell">
                     <LatestPost
                       hideTitle={true}
                       latestPost={topic.latestPost!}

@@ -1,13 +1,13 @@
-"use client";
-import { useState } from "react";
-import { Input, InputProps } from "../common/input";
+'use client';
+import { useState } from 'react';
+import { Input, InputProps } from '../common/input';
 
 type Props = {
   charLimit?: number;
 } & InputProps;
 
 export default function AdvancedInput({ charLimit, ...inputProps }: Props) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (charLimit) {
       if (event.target.value.length <= charLimit) {

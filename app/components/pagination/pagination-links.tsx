@@ -1,7 +1,7 @@
-"use client";
-import { usePathname, useSearchParams } from "next/navigation";
-import Button from "../common/button";
-import { useMemo } from "react";
+'use client';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Button from '../common/button';
+import { useMemo } from 'react';
 
 type Props = {
   currentPage: number;
@@ -19,8 +19,8 @@ export default function PaginationLinks({
 }: Props) {
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page")
-    ? Number(searchParams.get("page"))
+  const currentPage = searchParams.get('page')
+    ? Number(searchParams.get('page'))
     : 1;
 
   const getPagesToDisplay = () => {
@@ -46,7 +46,7 @@ export default function PaginationLinks({
       }
 
       return [1].concat(
-        Array.from({ length: maxPagesShown }, (_, i) => lastPageMinusFive + i)
+        Array.from({ length: maxPagesShown }, (_, i) => lastPageMinusFive + i),
       );
     }
 
@@ -63,7 +63,7 @@ export default function PaginationLinks({
 
   const pages = useMemo(
     () => getPagesToDisplay(),
-    [currentPage, getPagesToDisplay]
+    [currentPage, getPagesToDisplay],
   );
   if (numberOfPages <= 1) return null;
 
@@ -74,13 +74,12 @@ export default function PaginationLinks({
         return (
           <Button
             key={page}
-            asLink
+            variant="link"
             href={`${pathName}?page=${page}`}
-            variant="neutral"
             className={
               isCurrentPage
-                ? "bg-slate-800 outline outline-blue-300 cursor-default hover:bg-slate-800"
-                : ""
+                ? 'cursor-default bg-slate-800 outline outline-blue-300 hover:bg-slate-800'
+                : ''
             }
           >
             {page}

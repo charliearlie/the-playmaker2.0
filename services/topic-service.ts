@@ -1,7 +1,7 @@
-import { Post, Prisma, Role, Topic, User } from "@prisma/client";
-import { prisma } from "@/prisma";
-import { SafeUserData } from "./users-service";
-import { generateSlug } from "@/lib/utils";
+import { Post, Prisma, Role, Topic, User } from '@prisma/client';
+import { prisma } from '@/prisma';
+import { SafeUserData } from './users-service';
+import { generateSlug } from '@/lib/utils';
 
 export type EnrichedTopic = Topic & {
   postCount: number;
@@ -26,7 +26,7 @@ type TopicWithUser = Topic & {
 };
 
 const enrichTopics = async (
-  topics: TopicWithUser[]
+  topics: TopicWithUser[],
 ): Promise<EnrichedTopic[]> => {
   const enrichedTopics = topics.map(async (topic) => {
     const postCount = await prisma.post.count({
@@ -40,7 +40,7 @@ const enrichTopics = async (
         topicId: topic.id,
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
       include: {
         user: true,
@@ -60,7 +60,7 @@ const enrichTopics = async (
 export const getTopicsPerCategory = async (
   categorySlug: string,
   page: number,
-  numberOfTopics = 10
+  numberOfTopics = 10,
 ) => {
   const totalTopics = await prisma.topic.count({
     where: {
@@ -88,7 +88,7 @@ export const getTopicsPerCategory = async (
     take: numberOfTopics,
     skip: (page - 1) * numberOfTopics || 0,
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 
@@ -146,7 +146,7 @@ export const searchTopics = async (searchTerm: string) => {
           email: userEmail,
         },
       };
-    }
+    },
   );
 
   const enrichedTopics = await enrichTopics(topics);

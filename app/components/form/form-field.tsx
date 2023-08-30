@@ -1,6 +1,6 @@
-"use client";
-import type { FocusEvent, ReactElement } from "react";
-import { forwardRef, useState } from "react";
+'use client';
+import type { FocusEvent, ReactElement } from 'react';
+import { forwardRef, useState } from 'react';
 
 export type FormFieldErrorProps = {};
 
@@ -16,7 +16,7 @@ type Props = FormFieldProps & React.HTMLProps<HTMLInputElement>;
 const FormField = forwardRef<HTMLInputElement, Props>(
   (
     { errorMessage, label, labelLeft, name, validateFunc, ...props },
-    ref
+    ref,
   ): ReactElement => {
     const [isValidField, setIsValidField] = useState<boolean>(true);
 
@@ -28,7 +28,7 @@ const FormField = forwardRef<HTMLInputElement, Props>(
 
     const ErrorMessage = (): ReactElement | null => {
       if (errorMessage) {
-        if (typeof errorMessage === "string") {
+        if (typeof errorMessage === 'string') {
           return <p className="text-sm text-red-600">{errorMessage}</p>;
         }
 
@@ -40,7 +40,7 @@ const FormField = forwardRef<HTMLInputElement, Props>(
     return (
       <div
         className={`mb-4 flex ${
-          labelLeft ? "flex-row items-center justify-between" : "flex-col"
+          labelLeft ? 'flex-row items-center justify-between' : 'flex-col'
         }`}
       >
         <label className="block font-bold" htmlFor={name}>
@@ -59,9 +59,9 @@ const FormField = forwardRef<HTMLInputElement, Props>(
         </div>
       </div>
     );
-  }
+  },
 );
 
-FormField.displayName = "FormField";
+FormField.displayName = 'FormField';
 
 export default FormField;

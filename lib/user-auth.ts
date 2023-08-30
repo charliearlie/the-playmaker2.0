@@ -1,8 +1,9 @@
-import bcrypt from "bcrypt";
-import * as jose from "jose";
-import { prisma } from "../prisma";
-import type { User, Prisma } from "@prisma/client";
-import { cookies } from "next/headers";
+import bcrypt from 'bcrypt';
+import * as jose from 'jose';
+import { prisma } from '../prisma';
+import type { User, Prisma } from '@prisma/client';
+import { cookies } from 'next/headers';
+import { NextRequest } from 'next/server';
 
 export const register = async (user: Prisma.UserCreateInput) => {
   const exists = await prisma.user.count({ where: { email: user.email } });
@@ -44,7 +45,7 @@ export const createUser = async (user: Prisma.UserCreateInput) => {
 
 const createSession = async (user: User) => {
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
-  const alg = "HS256";
+  const alg = 'HS256';
   const jwt = await new jose.SignJWT({
     email: user.email,
     id: user.id,
@@ -52,9 +53,9 @@ const createSession = async (user: User) => {
   })
     .setProtectedHeader({ alg })
     .setIssuedAt()
-    .setIssuer("urn:example:issuer")
-    .setAudience("urn:example:audience")
-    .setExpirationTime("7d")
+    .setIssuer('urn:example:issuer')
+    .setAudience('urn:example:audience')
+    .setExpirationTime('7d')
     .sign(secret);
 
   if (!jwt) {
@@ -64,13 +65,41 @@ const createSession = async (user: User) => {
   return { success: true, token: jwt };
 };
 
-export const getSession = async (token: string) => {
+export type UserResponse = {
+  email?: string;
+  username?: string;
+  isLoggedIn: boolean;
+  id?: string;
+};
+
+export const getSession = async (request?: NextRequest) => {
+  let cookie;
+  if (request) {
+    cookie = request.cookies.get('user_session');
+  } else {
+    cookie = cookies().get('user_session');
+  }
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
 
-  const { payload, protectedHeader } = await jose.jwtVerify(token, secret, {
-    issuer: "urn:example:issuer",
-    audience: "urn:example:audience",
-  });
-
-  return payload;
+  if (cookie?.value) {
+    const { payload, protectedHeader } = await jose.jwtVerify(
+      cookie.value,
+      secret,
+      {
+        issuer: 'urn:example:issuer',
+        audience: 'urn:example:audience',
+      },
+    );
+    return { ...payload, isLoggedIn: true } as UserResponse;
+  }
+  return null;
 };
+
+export async function useServerUser() {
+  const data = await getSession();
+  if (data) {
+    return data as UserResponse;
+  }
+
+  return { isLoggedIn: false };
+}

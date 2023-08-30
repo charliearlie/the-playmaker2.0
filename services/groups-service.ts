@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma";
+import { prisma } from '@/prisma';
 
 export const getGroupData = async () => {
   const groupsWithCategories = await prisma.group.findMany({
@@ -25,7 +25,7 @@ export const getGroupData = async () => {
           },
         },
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
         include: {
           topic: true,
@@ -39,7 +39,7 @@ export const getGroupData = async () => {
         topicCount: category.topics.length,
         postCount: category.topics.reduce(
           (total, topic) => total + topic.posts.length,
-          0
+          0,
         ),
       };
     }),
@@ -49,7 +49,7 @@ export const getGroupData = async () => {
     enrichedGroupsWithCategories.map(async (group) => ({
       ...group,
       categories: await Promise.all(group.categories),
-    }))
+    })),
   );
 
   return resolvedGroups;

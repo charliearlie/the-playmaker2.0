@@ -79,7 +79,7 @@
 
 @layer components {
   .button {
-    @apply rounded-sm px-3 py-2 text-lg font-semibold text-white cursor-pointer;
+    @apply cursor-pointer rounded-sm px-3 py-2 text-lg font-bold text-slate-50;
   }
 
   .button-primary {
@@ -91,14 +91,14 @@
   }
 
   .button-danger {
-    @apply bg-red-500 hover:bg-red-600;
+    @apply bg-red-500 hover:bg-red-800;
   }
 
   .button-neutral {
-    @apply bg-slate-500 text-slate-50 hover:bg-slate-800;
+    @apply bg-slate-500 hover:bg-slate-800;
   }
 
   .button-ghost {
-    @apply outline outline-1 p-2;
+    @apply p-2 outline outline-1;
   }
 }

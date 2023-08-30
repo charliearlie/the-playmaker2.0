@@ -1,10 +1,20 @@
-import { Post, User } from "@prisma/client";
-import { Card, CardContent, CardSubheader } from "../common/card";
-import { formatDateToUsersPreference, getYear } from "@/lib/dates";
-import RoleBadge from "../user/role-badge";
-import CardFooter from "../common/card/card-footer";
-import Button from "../common/button";
-import { TextQuote } from "lucide-react";
+'use client';
+import { Post, User } from '@prisma/client';
+import { EditIcon, TextQuote } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { formatDateToUsersPreference, getYear } from '@/lib/dates';
+import { useToast } from '@/app/components/common/toast/use-toast';
+
+import Button from '../common/button';
+import { CardFooter, CardSubheader } from '../common/card';
+
+import RoleBadge from '../user/role-badge';
+import PostMarkdown from './post-markdown';
+import { handleDelete } from '@/app/actions/post-actions';
+import { ToastProps } from '../common/toast/toast';
+import DeletePostDialog from './delete-post-dialog';
+import { useClientUser } from '@/lib/contexts/user-context';
 
 type Props = {
   post: Post & {
@@ -12,41 +22,76 @@ type Props = {
   };
 };
 
+const buildToastProps = (success: boolean) => {
+  const title = success ? 'Post deleted successfully' : 'Something went wrong';
+  const description = success
+    ? 'Our code works'
+    : "You're probably not logged in";
+  const variant = success ? 'success' : 'destructive';
+
+  return { title, description, variant, duration: 5000 } as ToastProps;
+};
+
 export default function Post({ post }: Props) {
+  const { toast } = useToast();
+  const router = useRouter();
+  const { user } = useClientUser();
+
+  const isCurrentUserTheAuthor = user?.id === post.userId;
+
+  async function deleteButtonClick() {
+    const postDeletedSuccessfully = await handleDelete(post);
+    const { dismiss } = toast(buildToastProps(postDeletedSuccessfully));
+    setTimeout(() => {
+      dismiss();
+    }, 5000);
+    router.refresh();
+  }
+
   return (
-    <div>
+    <div id={post.id}>
       <CardSubheader>
         {formatDateToUsersPreference(post.createdAt)}
       </CardSubheader>
       <div className="min-h-[150px] sm:grid sm:grid-cols-4 lg:grid-cols-5">
-        <div className="bg-slate-100 col-span-4 sm:row-span-1 sm:col-span-1 p-2 flex flex-row sm:flex-col gap-1">
+        <div className="col-span-4 flex flex-row gap-1 bg-slate-100 p-2 sm:col-span-1 sm:row-span-1 sm:flex-col">
           {post.user.avatarUrl && (
             <img
-              className="w-12 h-12 sm:w-full sm:h-48 object-cover rounded-md"
+              className="h-12 w-12 rounded-md object-cover sm:h-48 sm:w-full"
               src={post.user.avatarUrl}
               alt="Avatar"
             />
           )}
-          <div className="flex sm:flex-col flex-1 items-center sm:items-start justify-between sm:justify-start">
-            <h4 className="font-semibold text-lg">{post.user.username}</h4>
+          <div className="flex flex-1 items-center justify-between sm:flex-col sm:items-start sm:justify-start">
+            <h4 className="text-lg font-semibold">{post.user.username}</h4>
             <RoleBadge role={post.user.role} />
+            <p className="hidden sm:block">
+              Joined: {getYear(post.user.createdAt)}
+            </p>
           </div>
-          <p className="hidden sm:block">
-            Joined: {getYear(post.user.createdAt)}
-          </p>
         </div>
-        <div className="h-full col-span-4 sm:col-span-3 lg:col-span-4 p-2">
-          {post.content}
+        <div className="col-span-4 h-full p-2 sm:col-span-3 lg:col-span-4">
+          <PostMarkdown content={post.content} />
         </div>
       </div>
-      <CardFooter className="flex justify-end">
+      <CardFooter className="flex justify-end gap-1">
         <Button
-          className="py-1 font-normal flex gap-1 items-center"
-          variant="neutral"
+          className="flex items-center gap-1"
+          href={`/create-post/${post.id}`}
+          variant="link-button"
         >
           <TextQuote />
           Quote
         </Button>
+        {isCurrentUserTheAuthor && (
+          <Button className="flex items-center gap-1" variant="primary">
+            <EditIcon />
+            Edit
+          </Button>
+        )}
+        {isCurrentUserTheAuthor && (
+          <DeletePostDialog action={deleteButtonClick} />
+        )}
       </CardFooter>
     </div>
   );

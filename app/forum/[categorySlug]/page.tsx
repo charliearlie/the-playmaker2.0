@@ -1,10 +1,10 @@
-import { Suspense } from "react";
-import { getCategoryFromSlug } from "@/services/category-service";
-import TopicsList from "@/app/components/topic/topics-list";
-import { getTopicsPerCategory } from "@/services/topic-service";
-import { Breadcrumbs } from "@/app/components/breadcrumbs";
-import Button from "@/app/components/common/button";
-import { PlusIcon } from "lucide-react";
+import { Suspense } from 'react';
+import { getCategoryFromSlug } from '@/services/category-service';
+import TopicsList from '@/app/components/topic/topics-list';
+import { getTopicsPerCategory } from '@/services/topic-service';
+import { Breadcrumbs } from '@/app/components/breadcrumbs';
+import Button from '@/app/components/common/button';
+import { PlusIcon } from 'lucide-react';
 
 type Props = {
   params: { categorySlug: string };
@@ -21,12 +21,11 @@ export default async function ForumPage({ params, searchParams }: Props) {
     return (
       <Suspense fallback={<h3>Loading...</h3>}>
         <div className="w-full">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <Breadcrumbs />
             <Button
-              className="flex gap-1 items-center"
+              className="flex items-center gap-1"
               variant="primary"
-              asLink
               href={`/create-thread/${categorySlug}`}
             >
               Create thread <PlusIcon />

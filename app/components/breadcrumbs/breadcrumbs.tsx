@@ -1,8 +1,9 @@
-"use client";
-import { usePathname, useSearchParams } from "next/navigation";
-import { ChevronRightIcon, HomeIcon } from "lucide-react";
-import Link from "next/link";
-import { slugMap } from "./slug-map";
+'use client';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { ChevronRightIcon, HomeIcon } from 'lucide-react';
+
+import { slugMap } from './slug-map';
 
 type Props = {
   optionalCrumb?: string;
@@ -12,7 +13,7 @@ type Props = {
 export default function Breadcrumbs({ optionalCrumb }: Props) {
   const pathName = usePathname();
 
-  const segments = pathName.split("/").filter((str) => Boolean(str));
+  const segments = pathName.split('/').filter((str) => Boolean(str));
   return (
     <div className="flex gap-1">
       <Link href="/">
