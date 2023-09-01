@@ -1,9 +1,10 @@
 'use client';
 import { useRef } from 'react';
 import { Topic } from '@prisma/client';
+import { experimental_useFormStatus as useFormStatus } from 'react-dom';
+
 import Button from '@/app/components/common/button';
 import { Card, CardContent, CardHeader } from '@/app/components/common/card';
-import PlaymakerLink from '@/app/components/common/link/link';
 import { Textarea } from '@/app/components/common/textarea';
 import { useToast } from '@/app/components/common/toast/use-toast';
 import { ToastProps } from '@/app/components/common/toast/toast';
@@ -31,6 +32,7 @@ export default function CreatePost({ categorySlug, topic }: Props) {
   const { user } = useClientUser();
   const { toast } = useToast();
   const pathname = usePathname();
+  const { pending } = useFormStatus();
   const ref = useRef<HTMLTextAreaElement>(null);
 
   async function submitPost(formData: FormData) {
@@ -58,10 +60,11 @@ export default function CreatePost({ categorySlug, topic }: Props) {
               <div className="flex justify-center py-2">
                 <Button
                   className="min-w-[200px]"
+                  disabled={pending}
                   variant="neutral"
                   type="submit"
                 >
-                  Add reply
+                  {pending ? 'Posting reply' : 'Add reply'}
                 </Button>
               </div>
             </form>

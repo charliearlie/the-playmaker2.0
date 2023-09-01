@@ -42,6 +42,13 @@ export default function PostMarkdown({ content }: Props) {
             </blockquote>
           );
         },
+        link({ children, href }) {
+          return (
+            <a href={href} className="text-blue-600 underline">
+              {children}
+            </a>
+          );
+        },
       }}
     >
       {content}

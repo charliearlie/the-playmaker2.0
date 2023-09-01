@@ -213,5 +213,21 @@ export const getTopicFromSlug = async (slug: string) => {
     },
   });
 
+  if (topic) {
+    console.log('view increase');
+    await addViewToTopic(topic);
+  }
+
   return topic;
+};
+
+export const addViewToTopic = async (topic: Topic) => {
+  await prisma.topic.update({
+    data: {
+      views: topic.views + 1,
+    },
+    where: {
+      id: topic.id,
+    },
+  });
 };
