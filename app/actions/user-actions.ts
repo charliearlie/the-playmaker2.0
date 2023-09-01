@@ -1,7 +1,7 @@
 'use server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { login, useServerUser } from '@/lib/user-auth';
+import { getSession, login } from '@/lib/user-auth';
 
 export const loginUser = async (formData: FormData) => {
   const username = formData.get('emailOrUsername') || '';
@@ -29,9 +29,9 @@ export const loginUser = async (formData: FormData) => {
 };
 
 export const logUserOut = async () => {
-  const { isLoggedIn } = await useServerUser();
+  const session = await getSession();
 
-  if (isLoggedIn) {
+  if (session?.isLoggedIn) {
     cookies().delete('user_session');
   }
 
