@@ -45,18 +45,18 @@ const FormField = forwardRef<HTMLInputElement, Props>(
       >
         <label className="block font-bold" htmlFor={name}>
           {label}
+          <div className="flex flex-col">
+            <input
+              className="rounded bg-slate-200 bg-clip-padding px-3 py-2
+            text-lg autofill:first-line:text-lg focus:outline-none focus:outline-2 focus:outline-violet-400"
+              name={name}
+              {...props}
+              ref={ref}
+              onBlur={validateInput}
+            />
+            {errorMessage && <ErrorMessage />}
+          </div>
         </label>
-        <div className="flex flex-col">
-          <input
-            className="rounded bg-slate-200 bg-clip-padding px-3 py-2
-        text-lg autofill:first-line:text-lg focus:outline-none focus:outline-2 focus:outline-violet-400"
-            name={name}
-            {...props}
-            ref={ref}
-            onBlur={validateInput}
-          />
-          {errorMessage && <ErrorMessage />}
-        </div>
       </div>
     );
   },
