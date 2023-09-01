@@ -20,15 +20,33 @@ export const register = async (user: Prisma.UserCreateInput) => {
 };
 
 export const login = async (usernameOrEmail: string, password: string) => {
-  const user = await prisma.user.findUnique({
-    where: { username: usernameOrEmail },
-  });
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username: usernameOrEmail },
+    });
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return null;
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return {
+        user,
+        success: false,
+        message: 'Invalid email/username and password combo',
+      };
+    }
+
+    const session = await createSession(user);
+    return {
+      user,
+      success: session.success,
+      message: null,
+      token: session.token,
+    };
+  } catch (error: unknown) {
+    return {
+      user: null,
+      success: false,
+      message: error as string,
+    };
   }
-
-  return createSession(user);
 };
 
 export const createUser = async (user: Prisma.UserCreateInput) => {

@@ -1,10 +1,10 @@
 'use server';
 import { getSession } from '@/lib/user-auth';
-import { createPost } from '@/services/posts-service';
-import { Post, Topic } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import { createPost } from '@/services/posts-service';
+import { Post, Topic } from '@prisma/client';
 
 export const handlePostCreation = async (
   formData: FormData,

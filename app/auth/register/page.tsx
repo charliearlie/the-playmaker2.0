@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 
-import Button from '../components/common/button';
-import FormField from '../components/form/form-field';
-import { Card, CardContent } from '../components/common/card';
+import Button from '../../components/common/button';
+import FormField from '../../components/form/form-field';
+import { Card, CardContent } from '../../components/common/card';
 import { register } from '@/lib/user-auth';
 
 export default function RegisterPage() {
@@ -56,7 +56,7 @@ export default function RegisterPage() {
                 </Button>
                 <Link
                   className="px-0 py-2 font-semibold text-blue-500 hover:text-slate-500"
-                  href="/login"
+                  href="/auth/login"
                 >
                   Already registered?
                 </Link>

@@ -5,7 +5,7 @@ import {
   getTotalNumberOfUsers,
   getUserRoles,
 } from '@/services/users-service';
-import PlaymakerLink from '../common/link';
+import PlaymakerLink from '../common/link/link';
 
 const getStatData = async () => {
   const [numberOfPosts, numberOfUsers, mostRecentUser] = await Promise.all([

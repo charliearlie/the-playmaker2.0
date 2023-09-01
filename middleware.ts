@@ -6,7 +6,7 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const cookie = request.cookies.get('user_session')?.value;
   if (!cookie) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/auth/login', request.url));
   }
 }
 

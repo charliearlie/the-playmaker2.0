@@ -3,12 +3,14 @@ import { useRef } from 'react';
 import { Topic } from '@prisma/client';
 import Button from '@/app/components/common/button';
 import { Card, CardContent, CardHeader } from '@/app/components/common/card';
-import PlaymakerLink from '@/app/components/common/link';
+import PlaymakerLink from '@/app/components/common/link/link';
 import { Textarea } from '@/app/components/common/textarea';
 import { useToast } from '@/app/components/common/toast/use-toast';
+import { ToastProps } from '@/app/components/common/toast/toast';
 import { handlePostCreation } from '@/app/actions/post-actions';
 import { useClientUser } from '@/lib/contexts/user-context';
-import { ToastProps } from '../common/toast/toast';
+import { usePathname } from 'next/navigation';
+import { LoginLink, LoginLinkText } from '../common/link';
 
 const buildToastProps = (success: boolean) => {
   const title = success ? 'Reply added successfully' : 'Something went wrong';
@@ -28,6 +30,7 @@ type Props = {
 export default function CreatePost({ categorySlug, topic }: Props) {
   const { user } = useClientUser();
   const { toast } = useToast();
+  const pathname = usePathname();
   const ref = useRef<HTMLTextAreaElement>(null);
 
   async function submitPost(formData: FormData) {
@@ -41,7 +44,7 @@ export default function CreatePost({ categorySlug, topic }: Props) {
     <Card>
       {user?.isLoggedIn ? (
         <>
-          <CardHeader>Add reply</CardHeader>
+          <CardHeader id="add-reply">Add reply</CardHeader>
           <CardContent>
             <form action={submitPost}>
               <label className="font-semibold" htmlFor="post">
@@ -66,9 +69,9 @@ export default function CreatePost({ categorySlug, topic }: Props) {
         </>
       ) : (
         <CardContent className="flex justify-center items-center h-24 font-semibold text-lg">
-          <PlaymakerLink href="/login">
-            Sign in to reply to this thread
-          </PlaymakerLink>
+          <LoginLink callback={pathname}>
+            <LoginLinkText>Sign in to reply to this thread</LoginLinkText>
+          </LoginLink>
         </CardContent>
       )}
     </Card>

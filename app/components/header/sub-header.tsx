@@ -2,9 +2,19 @@
 import { search } from '@/app/actions';
 import { useClientUser } from '@/lib/contexts/user-context';
 import Link from 'next/link';
+import Button from '../common/button';
+import { logUserOut } from '@/app/actions/user-actions';
+import { useToast } from '../common/toast/use-toast';
 
 export default function SubHeader() {
+  const { toast } = useToast();
   const { user } = useClientUser();
+
+  const handleLogOut = () => {
+    toast({ title: 'You have logged out successfully' });
+    logUserOut();
+  };
+
   return (
     <div className="flex w-full justify-between">
       <nav className="flex gap-1">
@@ -13,12 +23,30 @@ export default function SubHeader() {
         </Link>
         <button className="bg-slate-800 px-4 py-2 text-gray-200">Search</button>
         <button className="bg-slate-800 px-4 py-2 text-gray-200">Rules</button>
-        <Link href="/login" className="bg-slate-800 px-4 py-2 text-gray-200">
-          Log in
-        </Link>
-        <Link href="/register" className="bg-slate-800 px-4 py-2 text-gray-200">
-          Register
-        </Link>
+        {!user?.isLoggedIn && (
+          <>
+            <Link
+              href="/auth/login"
+              className="bg-slate-800 px-4 py-2 text-gray-200"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/auth/register"
+              className="bg-slate-800 px-4 py-2 text-gray-200"
+            >
+              Register
+            </Link>
+          </>
+        )}
+        {user?.isLoggedIn && (
+          <Button
+            onClick={handleLogOut}
+            className="bg-slate-800 px-4 py-2 text-gray-200"
+          >
+            Log out
+          </Button>
+        )}
       </nav>
       <div className="relative w-64">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
