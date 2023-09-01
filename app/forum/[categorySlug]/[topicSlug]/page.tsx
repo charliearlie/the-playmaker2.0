@@ -3,6 +3,8 @@ import { getTopicFromSlug } from '@/services/topic-service';
 import { getTopicPosts } from '@/services/posts-service';
 import Posts from '@/app/components/posts/posts';
 import CreatePost from '@/app/components/posts/create-post';
+import { Breadcrumbs } from '@/app/components/breadcrumbs';
+import Link from 'next/link';
 
 type Props = {
   params: { categorySlug: string; topicSlug: string };
@@ -19,6 +21,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
     return (
       <Suspense fallback={<h3>Loading...</h3>}>
         <div className="w-full">
+          <Link href={`/forum/${categorySlug}`}>{categorySlug}</Link>
           <Posts posts={posts} topicTitle={topic.title} />
           <CreatePost categorySlug={categorySlug} topic={topic} />
         </div>

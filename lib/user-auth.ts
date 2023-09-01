@@ -100,15 +100,20 @@ export const getSession = async (request?: NextRequest) => {
   const secret = new TextEncoder().encode(process.env.COOKIE_PASSWORD);
 
   if (cookie?.value) {
-    const { payload, protectedHeader } = await jose.jwtVerify(
-      cookie.value,
-      secret,
-      {
-        issuer: 'urn:example:issuer',
-        audience: 'urn:example:audience',
-      },
-    );
-    return { ...payload, isLoggedIn: true } as UserResponse;
+    try {
+      const { payload, protectedHeader } = await jose.jwtVerify(
+        cookie.value,
+        secret,
+        {
+          issuer: 'urn:example:issuer',
+          audience: 'urn:example:audience',
+        },
+      );
+      return { ...payload, isLoggedIn: true } as UserResponse;
+    } catch (error) {
+      cookies().delete('user_session');
+      return null;
+    }
   }
   return null;
 };
