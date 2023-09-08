@@ -1,6 +1,11 @@
 'use client';
 import classNames from 'classnames';
-import { createContext, useState, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  useState,
+  type PropsWithChildren,
+  useContext,
+} from 'react';
 
 type CardContextValue = {
   isCollapsed: boolean;
@@ -35,3 +40,12 @@ export default function Card({ children, fillParent }: Props) {
     </CardContext.Provider>
   );
 }
+
+export const useCard = () => {
+  const context = useContext(CardContext);
+  if (!context) {
+    throw new Error('useCard must be used within a Card component');
+  }
+
+  return context;
+};

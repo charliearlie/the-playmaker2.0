@@ -1,20 +1,17 @@
 'use client';
-import Link from 'next/link';
+import { useState } from 'react';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
-import Button from '../../components/common/button';
-import FormField from '../../components/form/form-field';
-import { Card, CardContent } from '../../components/common/card';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { AlertTriangleIcon } from 'lucide-react';
+
+import Button from '@/components/common/button';
+import FormField from '@/components/form/form-field';
+import { Card, CardContent } from '@/components/common/card';
+import { Alert, AlertDescription, AlertTitle } from '@/components/common/alert';
+import { useToast } from '@/components/common/toast/use-toast';
 
 import { loginUser } from '../../actions/user-actions';
-import { useState } from 'react';
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '../../components/common/alert';
-import { AlertTriangleIcon } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { useToast } from '@/app/components/common/toast/use-toast';
 
 type PageProps = {
   searchParams?: {

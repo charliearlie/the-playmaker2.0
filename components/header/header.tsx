@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import HeaderSearchAndMenu from './header-search-and-menu';
 import SubHeader from './sub-header';
+import { useServerUser } from '@/lib/user-auth';
 
-export default function Header() {
+export default async function Header() {
+  const user = await useServerUser();
   return (
     <header className="sticky top-0 z-10 rounded-b-md border-gray-200 bg-slate-900">
       <div className="mx-1 flex flex-wrap items-center justify-between p-2 md:mx-8">

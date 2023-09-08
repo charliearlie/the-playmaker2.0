@@ -1,9 +1,11 @@
 'use client';
-import { search } from '@/app/actions';
-import { useClientUser } from '@/lib/contexts/user-context';
 import Link from 'next/link';
-import Button from '../common/button';
+
+import { search } from '@/app/actions/search-actions';
 import { logUserOut } from '@/app/actions/user-actions';
+import { useClientUser } from '@/lib/contexts/user-context';
+
+import Button from '../common/button';
 import { useToast } from '../common/toast/use-toast';
 
 export default function SubHeader() {

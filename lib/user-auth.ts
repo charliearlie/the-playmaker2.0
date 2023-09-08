@@ -1,9 +1,10 @@
-import bcrypt from 'bcrypt';
-import * as jose from 'jose';
-import { prisma } from '../prisma';
-import type { User, Prisma } from '@prisma/client';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
+import bcrypt from 'bcrypt';
+import * as jose from 'jose';
+import type { User, Prisma } from '@prisma/client';
+
+import { prisma } from '../prisma';
 
 export const register = async (user: Prisma.UserCreateInput) => {
   const exists = await prisma.user.count({ where: { email: user.email } });
@@ -84,6 +85,7 @@ const createSession = async (user: User) => {
 };
 
 export type UserResponse = {
+  avatarUrl?: string;
   email?: string;
   username?: string;
   isLoggedIn: boolean;
@@ -109,7 +111,12 @@ export const getSession = async (request?: NextRequest) => {
           audience: 'urn:example:audience',
         },
       );
-      return { ...payload, isLoggedIn: true } as UserResponse;
+
+      const userResponse = { ...payload, isLoggedIn: true } as UserResponse;
+      const detailedUserData = await prisma.user.findUnique({
+        where: { id: userResponse.id },
+      });
+      return { ...userResponse, avatarUrl: detailedUserData?.avatarUrl || '' };
     } catch (error) {
       cookies().delete('user_session');
       return null;

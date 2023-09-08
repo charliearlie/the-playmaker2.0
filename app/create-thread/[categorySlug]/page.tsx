@@ -1,15 +1,18 @@
-import { getCategoryFromSlug } from '@/services/category-service';
-import Button from '@/app/components/common/button';
+import { redirect } from 'next/navigation';
+
+import Button from '@/components/common/button';
+import AdvancedInput from '@/components/input/advanced-input';
+import { Textarea } from '@/components/common/textarea';
 import {
   Card,
   CardContent,
   CardHeader,
   CardSubheader,
-} from '@/app/components/common/card';
-import AdvancedInput from '@/app/components/input/advanced-input';
-import { Textarea } from '@/app/components/common/textarea';
-import { redirect } from 'next/navigation';
+} from '@/components/common/card';
+
+import { getCategoryFromSlug } from '@/services/category-service';
 import { createTopicAndInitialpost } from '@/services/topic-service';
+
 import { useServerUser } from '@/lib/user-auth';
 
 type Props = {

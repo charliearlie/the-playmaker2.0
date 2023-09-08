@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
-import { search } from '@/app/actions';
+import { search } from '@/app/actions/search-actions';
 
 export default function HeaderSearchAndMenu() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);

@@ -1,8 +1,8 @@
+import { revalidatePath } from 'next/cache';
+import { NextRequest, NextResponse } from 'next/server';
+
 import { getSession } from '@/lib/user-auth';
 import { getPost, removePost } from '@/services/posts-service';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { NextRequest, NextResponse } from 'next/server';
 
 type DeleteParams = {
   params: {

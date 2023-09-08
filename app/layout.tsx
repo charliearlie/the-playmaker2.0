@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header } from './components/header';
-import { Card, CardContent } from './components/common/card';
+import { Header } from '../components/header';
+import { Card, CardContent } from '../components/common/card';
 import './globals.css';
-import { Toaster } from './components/common/toast/toaster';
+import { Toaster } from '../components/common/toast/toaster';
 import UserProvider from '@/lib/contexts/user-context';
 import { useServerUser } from '@/lib/user-auth';
 

@@ -1,4 +1,4 @@
-import { Card, CardContent } from '../components/common/card';
+import { Card, CardContent } from '../../components/common/card';
 
 export default function UserPage() {
   return (

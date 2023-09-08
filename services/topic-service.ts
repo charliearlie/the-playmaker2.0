@@ -1,7 +1,8 @@
-import { Post, Prisma, Role, Topic, User } from '@prisma/client';
 import { prisma } from '@/prisma';
-import { SafeUserData } from './users-service';
+import { Post, Role, Topic, User } from '@prisma/client';
 import { generateSlug } from '@/lib/utils';
+
+import { SafeUserData } from './users-service';
 
 export type EnrichedTopic = Topic & {
   postCount: number;
@@ -214,7 +215,6 @@ export const getTopicFromSlug = async (slug: string) => {
   });
 
   if (topic) {
-    console.log('view increase');
     await addViewToTopic(topic);
   }
 

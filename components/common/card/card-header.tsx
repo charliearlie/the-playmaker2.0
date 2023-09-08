@@ -1,8 +1,8 @@
 'use client';
-import { HTMLProps, PropsWithChildren, useContext } from 'react';
+import type { HTMLProps, PropsWithChildren } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import Button from '../button';
-import { CardContext } from './card';
+import { useCard } from './card';
 
 type Props = {
   canMinimise?: boolean;
@@ -12,7 +12,7 @@ export default function CardHeader({
   children,
   ...headingProps
 }: PropsWithChildren<Props>) {
-  const { isCollapsed, toggleCollapse } = useContext(CardContext);
+  const { isCollapsed, toggleCollapse } = useCard();
   return (
     <div className="flex w-full justify-between rounded-t-sm bg-slate-800 p-2 text-center text-2xl font-bold text-slate-100">
       <h2 {...headingProps}>{children}</h2>

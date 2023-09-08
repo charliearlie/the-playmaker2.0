@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLProps, type ReactNode } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 import Link from 'next/link';
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';

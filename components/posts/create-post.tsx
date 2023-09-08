@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import { Topic } from '@prisma/client';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 
-import Button from '@/app/components/common/button';
-import { Card, CardContent, CardHeader } from '@/app/components/common/card';
-import { Textarea } from '@/app/components/common/textarea';
-import { useToast } from '@/app/components/common/toast/use-toast';
-import { ToastProps } from '@/app/components/common/toast/toast';
+import Button from '@/components/common/button';
+import { Card, CardContent, CardHeader } from '@/components/common/card';
+import { Textarea } from '@/components/common/textarea';
+import { useToast } from '@/components/common/toast/use-toast';
+import { ToastProps } from '@/components/common/toast/toast';
 import { handlePostCreation } from '@/app/actions/post-actions';
 import { useClientUser } from '@/lib/contexts/user-context';
 import { usePathname } from 'next/navigation';

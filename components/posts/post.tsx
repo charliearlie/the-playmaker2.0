@@ -4,7 +4,7 @@ import { EditIcon, TextQuote } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { formatDateToUsersPreference, getYear } from '@/lib/dates';
-import { useToast } from '@/app/components/common/toast/use-toast';
+import { useToast } from '@/components/common/toast/use-toast';
 
 import Button from '../common/button';
 import { CardFooter, CardSubheader } from '../common/card';

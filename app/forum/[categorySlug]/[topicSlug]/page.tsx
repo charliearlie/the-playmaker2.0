@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
+import Link from 'next/link';
+
+import Posts from '@/components/posts/posts';
+import CreatePost from '@/components/posts/create-post';
+
 import { getTopicFromSlug } from '@/services/topic-service';
 import { getTopicPosts } from '@/services/posts-service';
-import Posts from '@/app/components/posts/posts';
-import CreatePost from '@/app/components/posts/create-post';
-import { Breadcrumbs } from '@/app/components/breadcrumbs';
-import Link from 'next/link';
 
 type Props = {
   params: { categorySlug: string; topicSlug: string };

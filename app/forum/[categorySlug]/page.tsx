@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
-import { getCategoryFromSlug } from '@/services/category-service';
-import TopicsList from '@/app/components/topic/topics-list';
-import { getTopicsPerCategory } from '@/services/topic-service';
-import { Breadcrumbs } from '@/app/components/breadcrumbs';
-import Button from '@/app/components/common/button';
 import { PlusIcon } from 'lucide-react';
+
+import TopicsList from '@/components/topic/topics-list';
+import { Breadcrumbs } from '@/components/breadcrumbs';
+import Button from '@/components/common/button';
+
+import { getCategoryFromSlug } from '@/services/category-service';
+import { getTopicsPerCategory } from '@/services/topic-service';
 
 type Props = {
   params: { categorySlug: string };
