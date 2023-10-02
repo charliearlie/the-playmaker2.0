@@ -54,3 +54,7 @@ export const removePost = async (id: string) => {
 
 export const getPost = async (id: string) =>
   await prisma.post.findUnique({ where: { id } });
+
+export const getNumberOfUserPosts = async (userId: string) => {
+  return await prisma.post.count({ where: { userId } });
+};

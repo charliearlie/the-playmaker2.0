@@ -1,14 +1,14 @@
 import { redirect } from 'next/navigation';
 
-import Button from '@/components/common/button';
+import Button from '@/components/button';
 import AdvancedInput from '@/components/input/advanced-input';
-import { Textarea } from '@/components/common/textarea';
+import { Textarea } from '@/components/textarea';
 import {
   Card,
   CardContent,
   CardHeader,
   CardSubheader,
-} from '@/components/common/card';
+} from '@/components/card';
 
 import { getCategoryFromSlug } from '@/services/category-service';
 import { createTopicAndInitialpost } from '@/services/topic-service';

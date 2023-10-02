@@ -231,3 +231,7 @@ export const addViewToTopic = async (topic: Topic) => {
     },
   });
 };
+
+export const getNumberOfUserTopics = async (userId: string) => {
+  return await prisma.topic.count({ where: { userId } });
+};

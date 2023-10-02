@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header } from '../components/header';
-import { Card, CardContent } from '../components/common/card';
+import { Card, CardContent } from '../components/card';
 import './globals.css';
-import { Toaster } from '../components/common/toast/toaster';
+import { Toaster } from '../components/toast/toaster';
 import UserProvider from '@/lib/contexts/user-context';
 import { useServerUser } from '@/lib/user-auth';
 
@@ -36,9 +36,7 @@ export default async function RootLayout({
                 <div className="flex justify-center">Announcement banner</div>
               </CardContent>
             </Card>
-            <main className="flex h-screen w-full max-w-[1600px] mx-auto flex-col flex-wrap md:content-center">
-              {children}
-            </main>
+            <main>{children}</main>
           </div>
         </UserProvider>
       </body>

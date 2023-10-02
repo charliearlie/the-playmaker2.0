@@ -99,6 +99,10 @@
   }
 
   .button-ghost {
+    @apply button p-2 outline outline-1 text-slate-900 hover:bg-slate-400;
+  }
+
+  .button-link {
     @apply p-2 outline outline-1;
   }
 }

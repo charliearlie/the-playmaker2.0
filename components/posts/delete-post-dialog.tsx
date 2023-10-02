@@ -9,8 +9,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../common/alert-dialog/alert-dialog';
-import Button from '../common/button';
+} from '@/components/alert-dialog/alert-dialog';
+import Button from '@/components/button';
 
 type DeletePostDialogProps = {
   action: () => void;

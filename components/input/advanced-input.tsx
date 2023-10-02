@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Input, InputProps } from '../common/input';
+import { Input, InputProps } from '@/components/input';
 
 type Props = {
   charLimit?: number;

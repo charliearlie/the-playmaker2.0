@@ -2,16 +2,16 @@
 import { useRef } from 'react';
 import { Topic } from '@prisma/client';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
+import { usePathname } from 'next/navigation';
 
-import Button from '@/components/common/button';
-import { Card, CardContent, CardHeader } from '@/components/common/card';
-import { Textarea } from '@/components/common/textarea';
-import { useToast } from '@/components/common/toast/use-toast';
-import { ToastProps } from '@/components/common/toast/toast';
+import Button from '@/components/button';
+import { Card, CardContent, CardHeader } from '@/components/card';
+import { Textarea } from '@/components/textarea';
+import { useToast } from '@/components/toast/use-toast';
+import { ToastProps } from '@/components/toast/toast';
 import { handlePostCreation } from '@/app/actions/post-actions';
 import { useClientUser } from '@/lib/contexts/user-context';
-import { usePathname } from 'next/navigation';
-import { LoginLink, LoginLinkText } from '../common/link';
+import { LoginLink, LoginLinkText } from '@/components/link';
 
 const buildToastProps = (success: boolean) => {
   const title = success ? 'Reply added successfully' : 'Something went wrong';

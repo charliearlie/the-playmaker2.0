@@ -1,7 +1,8 @@
 'use client';
-import { usePathname, useSearchParams } from 'next/navigation';
-import Button from '../common/button';
 import { useMemo } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+import Button from '@/components/button';
 
 type Props = {
   currentPage: number;

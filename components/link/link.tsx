@@ -12,7 +12,7 @@ export default function PlaymakerLink({
 }: PropsWithChildren<Props>) {
   return (
     <Link
-      className={`font-semibold text-slate-700 underline hover:text-slate-400 ${className}`}
+      className={`font-semibold cursor-pointer text-slate-700 underline hover:text-slate-500 ${className}`}
       {...props}
     >
       {children}

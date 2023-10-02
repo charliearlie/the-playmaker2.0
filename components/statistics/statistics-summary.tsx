@@ -1,11 +1,16 @@
-import { Card, CardContent, CardHeader, CardSubheader } from '../common/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardSubheader,
+} from '@/components/card';
 import { getTotalNumberOfPosts } from '@/services/posts-service';
 import {
   getMostRecentUser,
   getTotalNumberOfUsers,
   getUserRoles,
 } from '@/services/users-service';
-import PlaymakerLink from '../common/link/link';
+import PlaymakerLink from '@/components/link/link';
 
 const getStatData = async () => {
   const [numberOfPosts, numberOfUsers, mostRecentUser] = await Promise.all([

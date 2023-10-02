@@ -5,8 +5,8 @@ import { search } from '@/app/actions/search-actions';
 import { logUserOut } from '@/app/actions/user-actions';
 import { useClientUser } from '@/lib/contexts/user-context';
 
-import Button from '../common/button';
-import { useToast } from '../common/toast/use-toast';
+import Button from '../button';
+import { useToast } from '../toast/use-toast';
 
 export default function SubHeader() {
   const { toast } = useToast();

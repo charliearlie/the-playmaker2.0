@@ -118,7 +118,8 @@ export const getSession = async (request?: NextRequest) => {
       });
       return { ...userResponse, avatarUrl: detailedUserData?.avatarUrl || '' };
     } catch (error) {
-      cookies().delete('user_session');
+      console.log('error', error);
+      // cookies().delete('user_session');
       return null;
     }
   }

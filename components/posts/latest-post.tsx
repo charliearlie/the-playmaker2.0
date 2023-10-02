@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { Post, User } from '@prisma/client';
 import { ArrowRightFromLine } from 'lucide-react';
-import PlaymakerLink from '../common/link/link';
+import PlaymakerLink from '@/components/link/link';
 
 type Props = {
   hideTitle?: boolean;
@@ -27,7 +27,7 @@ export default function LatestPost({
         {dayjs(latestPost?.createdAt).format('ddd DD MMM, YYYY HH:mm')}
       </p>
       <div className="flex gap-1">
-        <PlaymakerLink className="text-xs" href="/">
+        <PlaymakerLink className="text-xs" href={`/user/${latestPost.user.id}`}>
           {latestPost?.user.username}
         </PlaymakerLink>
         <PlaymakerLink className="text-xs" href="/">

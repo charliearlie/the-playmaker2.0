@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import LatestPost from '../posts/latest-post';
-import { Card, CardContent, CardHeader } from '../common/card';
 import { Category } from '@prisma/client';
+
 import { EnrichedTopic } from '@/services/topic-service';
+import LatestPost from '../posts/latest-post';
+import { Card, CardContent, CardHeader } from '@/components/card';
 import PaginationLinks from '../pagination/pagination-links';
 
 type Props = {

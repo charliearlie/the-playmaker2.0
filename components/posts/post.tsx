@@ -4,15 +4,15 @@ import { EditIcon, TextQuote } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { formatDateToUsersPreference, getYear } from '@/lib/dates';
-import { useToast } from '@/components/common/toast/use-toast';
+import { useToast } from '@/components/toast/use-toast';
 
-import Button from '../common/button';
-import { CardFooter, CardSubheader } from '../common/card';
+import Button from '@/components/button';
+import { CardFooter, CardSubheader } from '@/components/card';
+import { ToastProps } from '@/components/toast/toast';
 
 import RoleBadge from '../user/role-badge';
 import PostMarkdown from './post-markdown';
 import { handleDelete } from '@/app/actions/post-actions';
-import { ToastProps } from '../common/toast/toast';
 import DeletePostDialog from './delete-post-dialog';
 import { useClientUser } from '@/lib/contexts/user-context';
 

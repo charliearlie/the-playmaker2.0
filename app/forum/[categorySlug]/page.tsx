@@ -3,7 +3,7 @@ import { PlusIcon } from 'lucide-react';
 
 import TopicsList from '@/components/topic/topics-list';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import Button from '@/components/common/button';
+import Button from '@/components/button';
 
 import { getCategoryFromSlug } from '@/services/category-service';
 import { getTopicsPerCategory } from '@/services/topic-service';

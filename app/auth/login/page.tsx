@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { AlertTriangleIcon } from 'lucide-react';
 
-import Button from '@/components/common/button';
+import Button from '@/components/button';
 import FormField from '@/components/form/form-field';
-import { Card, CardContent } from '@/components/common/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/common/alert';
-import { useToast } from '@/components/common/toast/use-toast';
+import { Card, CardContent } from '@/components/card';
+import { Alert, AlertDescription, AlertTitle } from '@/components/alert';
+import { useToast } from '@/components/toast/use-toast';
 
 import { loginUser } from '../../actions/user-actions';
 
