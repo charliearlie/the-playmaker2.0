@@ -1,13 +1,13 @@
 import { Separator } from '@/components/separator';
-import { getUserProfileData } from '@/services/users-service';
-import { ProfileEdit } from './components/profile-edit';
+import { getUserAccountData } from '@/services/users-service';
+import { AccountEdit } from './components/account-edit';
 
 type PageProps = {
-  params: { userId: string };
+  params: { username: string };
 };
 
-export default async function UserProfile({ params }: PageProps) {
-  const user = await getUserProfileData(params.userId);
+export default async function UserAccount({ params }: PageProps) {
+  const user = await getUserAccountData(params.username);
   return (
     <div className="space-y-6">
       <div>
@@ -17,7 +17,7 @@ export default async function UserProfile({ params }: PageProps) {
         </p>
       </div>
       <Separator />
-      <ProfileEdit userProfileData={user} />
+      <AccountEdit userAccountData={user} />
     </div>
   );
 }

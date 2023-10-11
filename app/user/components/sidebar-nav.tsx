@@ -5,38 +5,38 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/button';
+import { getSession } from '@/lib/user-auth';
+import { useClientUser } from '@/lib/contexts/user-context';
 
 export function SidebarNav({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { user } = useClientUser();
   // This works but there HAS to be a better way
-  const userId = pathname.split('/')[2];
-  console.log('userId', `/user/${userId}/profile`);
+  const username = pathname.split('/')[2];
   const sidebarNavItems = [
     {
       title: 'Profile',
-      href: `/user/${userId}/profile`,
-    },
-    {
-      title: 'Account',
-      href: `/user/${userId}/account`,
+      href: `/user/${username}/profile`,
     },
     {
       title: 'Posts',
-      href: `/user/${userId}/posts`,
+      href: `/user/${username}/posts`,
     },
     {
       title: 'Topics',
-      href: `/user/${userId}/topics`,
-    },
-    {
-      title: 'Display',
-      href: '/examples/forms/display',
+      href: `/user/${username}/topics`,
     },
   ];
+
+  if (user?.username === username) {
+    sidebarNavItems.unshift({
+      title: 'Account',
+      href: `/user/${username}/account`,
+    });
+  }
 
   return (
     <nav

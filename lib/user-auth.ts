@@ -35,6 +35,8 @@ export const login = async (usernameOrEmail: string, password: string) => {
     }
 
     const session = await createSession(user);
+
+    console.log('session', session);
     return {
       user,
       success: session.success,
@@ -72,8 +74,8 @@ const createSession = async (user: User) => {
   })
     .setProtectedHeader({ alg })
     .setIssuedAt()
-    .setIssuer('urn:example:issuer')
-    .setAudience('urn:example:audience')
+    .setIssuer('urn:playmaker:issuer')
+    .setAudience('urn:playmaker:audience')
     .setExpirationTime('7d')
     .sign(secret);
 
@@ -103,14 +105,10 @@ export const getSession = async (request?: NextRequest) => {
 
   if (cookie?.value) {
     try {
-      const { payload, protectedHeader } = await jose.jwtVerify(
-        cookie.value,
-        secret,
-        {
-          issuer: 'urn:example:issuer',
-          audience: 'urn:example:audience',
-        },
-      );
+      const { payload } = await jose.jwtVerify(cookie.value, secret, {
+        issuer: 'urn:playmaker:issuer',
+        audience: 'urn:playmaker:audience',
+      });
 
       const userResponse = { ...payload, isLoggedIn: true } as UserResponse;
       const detailedUserData = await prisma.user.findUnique({
@@ -119,7 +117,9 @@ export const getSession = async (request?: NextRequest) => {
       return { ...userResponse, avatarUrl: detailedUserData?.avatarUrl || '' };
     } catch (error) {
       console.log('error', error);
-      // cookies().delete('user_session');
+      if (cookies().get('user_session')) {
+        cookies().delete('user_session');
+      }
       return null;
     }
   }

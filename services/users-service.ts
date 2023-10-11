@@ -52,29 +52,44 @@ export const getUserById = async (id: string) => {
   });
 };
 
-export const getUserAccountData = async (id: string) => {
-  const { email, username } = await getUserById(id);
+export const getUserByUsername = async (username: string) => {
+  return await prisma.user.findUniqueOrThrow({
+    where: {
+      username,
+    },
+  });
+};
+
+export const getUserAccountData = async (name: string) => {
+  const { email, username } = await getUserByUsername(name);
 
   return { email, username };
 };
 
 export type UserAccountData = Awaited<ReturnType<typeof getUserAccountData>>;
 
-export const getUserProfileData = async (id: string) => {
-  const { active, avatarUrl, createdAt, feedbackScore, role, username } =
-    await getUserById(id);
-  const postsCount = await getNumberOfUserPosts(id);
-  const topicsCount = await getNumberOfUserTopics(id);
+export const getUserProfileData = async (userName: string) => {
+  const {
+    active,
+    avatarUrl,
+    createdAt,
+    feedbackScore,
+    id,
+    location,
+    role,
+    supports,
+    username,
+  } = await getUserByUsername(userName);
 
   return {
     active,
     avatarUrl,
     createdAt,
     feedbackScore,
+    location,
     role,
+    supports,
     username,
-    postsCount,
-    topicsCount,
   };
 };
 

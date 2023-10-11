@@ -15,6 +15,7 @@ export const loginUser = async (formData: FormData) => {
   }
 
   const response = await login(username, password);
+  console.log('response.token', response.token);
 
   if (response?.token) {
     cookies().set({

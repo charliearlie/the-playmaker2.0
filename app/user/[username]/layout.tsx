@@ -4,34 +4,12 @@ import Image from 'next/image';
 import { Separator } from '@/components/separator';
 import { SidebarNav } from '../components/sidebar-nav';
 import { Card } from '@/components/card';
+import { getSession } from '@/lib/user-auth';
 
 export const metadata: Metadata = {
   title: 'Forms',
   description: 'Advanced form example using react-hook-form and Zod.',
 };
-
-const sidebarNavItems = [
-  {
-    title: 'Profile',
-    href: '/user/',
-  },
-  {
-    title: 'Account',
-    href: '/user/account',
-  },
-  {
-    title: 'Appearance',
-    href: '/examples/forms/appearance',
-  },
-  {
-    title: 'Notifications',
-    href: '/examples/forms/notifications',
-  },
-  {
-    title: 'Display',
-    href: '/examples/forms/display',
-  },
-];
 
 interface UserLayoutProps {
   children: React.ReactNode;
@@ -66,7 +44,7 @@ export default function UserLayout({ children }: UserLayoutProps) {
         <Separator className="my-6" />
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
           <aside className="-mx-4 lg:w-1/5">
-            <SidebarNav/>
+            <SidebarNav />
           </aside>
           <div className="flex-1 lg:max-w-2xl">{children}</div>
         </div>

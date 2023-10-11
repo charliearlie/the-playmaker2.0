@@ -18,17 +18,14 @@ import { Input } from '@/components/input';
 import { useToast } from '@/components/toast/use-toast';
 import { UserProfileData } from '@/services/users-service';
 import RoleBadge from '@/components/user/role-badge';
-import Link from 'next/link';
 import PlaymakerLink from '@/components/link/link';
 
 const profileFormSchema = z.object({
   avatarUrl: z.string().min(2, {
     message: 'Upload failed',
   }),
-  username: z
-    .string()
-    .min(2, { message: 'Username must be longer than 1 character' }),
-  password: z.string().optional(),
+  location: z.string().optional(),
+  supports: z.string().optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -39,11 +36,13 @@ type Props = {
 
 export function ProfileEdit({ userProfileData }: Props) {
   const { toast } = useToast();
-  const { active, avatarUrl, createdAt, role, username } = userProfileData;
+  const { active, avatarUrl, createdAt, location, role, supports, username } =
+    userProfileData;
 
   const defaultValues: Partial<ProfileFormValues> = {
     avatarUrl: avatarUrl || '',
-    username,
+    location: location || '',
+    supports: supports || '',
   };
 
   const form = useForm<ProfileFormValues>({
@@ -68,12 +67,15 @@ export function ProfileEdit({ userProfileData }: Props) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="username"
+          name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Location</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" defaultValue={username} />
+                <Input
+                  placeholder="shadcn"
+                  defaultValue={defaultValues.location}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,12 +83,12 @@ export function ProfileEdit({ userProfileData }: Props) {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="supports"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Supports</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Change your password" />
+                <Input type="text" defaultValue={defaultValues.supports} />
               </FormControl>
               <FormMessage />
             </FormItem>

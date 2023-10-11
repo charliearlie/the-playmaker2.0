@@ -19,10 +19,13 @@ model User {
   avatarUrl     String?
   feedbackScore Int?
   posts         Post[]
+  location      String?
   topics        Topic[]
+  supports      String?
   role          Role        @default(USER)
   likedPosts    PostLike[]
   likedTopics   TopicLike[]
+  signature     String?
 }
 
 enum Role {
